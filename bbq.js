@@ -60,6 +60,8 @@ function BBQController() {
 inherits(BBQController, EventEmitter);
 
 BBQController.prototype.setTarget = function setTarget(target) {
+  console.log('Target: ', target);
+
   const self = this;
 
   self.target = target;

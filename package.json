@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mshogren/bbqpi-server#readme",
   "dependencies": {
+    "console-stamp": "^0.2.5",
     "firebase": "^3.6.4",
     "mcp-spi-adc": "^0.3.1",
     "pi-gpioutil": "0.0.3",
