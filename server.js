@@ -1,4 +1,3 @@
-require('console-stamp')(console);
 const bbq = require('./bbq')();
 const backend = require('./backend.js')();
 

@@ -17,7 +17,7 @@ function FirebaseBackend() {
   self.auth = auth(firebase, config.googleOAuth);
 
   self.auth.on('login', () => {
-    self.db = db(firebase);
+    self.db = self.db || db(firebase);
     self.emit('login', self.db);
   });
 }

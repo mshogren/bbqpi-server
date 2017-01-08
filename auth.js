@@ -28,6 +28,8 @@ function FirebaseAuth(firebase, googleOAuthConfig) {
     },
   };
 
+  let handleDeviceResponse;
+
   const handleTokenResponse = function handleTokenResponse(err, response, body) {
     const token = JSON.parse(body);
 
@@ -52,8 +54,8 @@ function FirebaseAuth(firebase, googleOAuthConfig) {
     }
   };
 
-  const handleDeviceResponse = function handleDeviceResponse(err, response, body) {
-    const { verification_url, interval, device_code, user_code } = JSON.parse(body);
+  handleDeviceResponse = function handleDeviceResponseFunc(err, response, body) {
+    const { verification_url, expires_in, interval, device_code, user_code } = JSON.parse(body);
 
     /* eslint-disable camelcase */
     console.log(`Verification Url: ${verification_url}, Code: ${user_code}`);
@@ -68,9 +70,17 @@ function FirebaseAuth(firebase, googleOAuthConfig) {
       },
     };
 
-    self.requestInterval = setInterval(() => {
+    clearInterval(self.tokenRequestInterval);
+    self.tokenRequestInterval = setInterval(() => {
       request.post(tokenRequestUrl, tokenRequestBody, handleTokenResponse);
     }, (interval + 1) * 1000);
+
+    clearInterval(self.deviceRequestInterval);
+    /* eslint-disable camelcase */
+    self.deviceRequestInterval = setInterval(() => {
+      request.post(deviceRequestUrl, deviceRequestBody, handleDeviceResponse);
+    }, (expires_in - 10) * 1000);
+    /* eslint-enable camelcase */
   };
 
   const login = function login() {
@@ -93,6 +103,8 @@ function FirebaseAuth(firebase, googleOAuthConfig) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       console.log(`${user.email} logged in`);
+      clearInterval(self.tokenRequestInterval);
+      clearInterval(self.deviceRequestInterval);
       self.emit('login', user);
     } else {
       console.log('Logged out');
@@ -105,7 +117,8 @@ function FirebaseAuth(firebase, googleOAuthConfig) {
 inherits(FirebaseAuth, EventEmitter);
 
 FirebaseAuth.prototype.stop = function stop() {
-  clearInterval(this.requestInterval);
+  clearInterval(this.tokenRequestInterval);
+  clearInterval(this.deviceRequestInterval);
 };
 
 module.exports = FirebaseAuth;
