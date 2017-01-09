@@ -10,13 +10,16 @@ function FirebaseDatabase(firebase) {
 
   self.db = firebase.database();
 
-  const targetTemperatureRef = self.db.ref('targetTemperature');
-  const stateRef = self.db.ref('state');
+  const uid = firebase.auth().currentUser.uid;
+  const baseRef = self.db.ref(`users/${uid}`);
+  const stateRef = baseRef.child('state');
+  const targetTemperatureRef = baseRef.child('targetTemperature');
+  const sensorRef = baseRef.child('sensor');
 
-  self.addStateWithTimestamp = function addStateWithTimestamp(data) {
-    const record = data;
-    record.timestamp = firebase.database.ServerValue.TIMESTAMP;
-    stateRef.push(record).then(
+  self.addStateWithTimestamp = function addStateWithTimestamp(state) {
+    const data = Object.assign({}, state, { timestamp: firebase.database.ServerValue.TIMESTAMP });
+
+    stateRef.push(data).then(
       () => {},
       (err) => {
         console.log(err);
@@ -44,6 +47,14 @@ function FirebaseDatabase(firebase) {
 
   targetTemperatureRef.on('value', (data) => {
     self.emit('setTargetTemperature', data.val());
+  });
+
+  sensorRef.on('child_added', (data) => {
+    self.emit('addSensor', data.val());
+  });
+
+  sensorRef.on('child_removed', (data) => {
+    self.emit('removeSensor', data.val());
   });
 }
 

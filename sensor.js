@@ -2,10 +2,15 @@ const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
 const mcpadc = require('mcp-spi-adc');
 
-function Sensor(channel) {
-  if (!(this instanceof Sensor)) return new Sensor(channel);
+function Sensor(channel, name) {
+  if (!(this instanceof Sensor)) return new Sensor(channel, name);
 
   this.channel = channel;
+  this.state = {
+    channel,
+  };
+
+  if (name) this.state.name = name;
 
   EventEmitter.call(this);
 }
@@ -15,24 +20,28 @@ inherits(Sensor, EventEmitter);
 Sensor.prototype.start = function start() {
   const self = this;
 
-  let data;
-
-  self.tempSensor = mcpadc.open(self.channel, { speedHz: 20000 }, (openErr) => {
+  const tempSensor = mcpadc.open(self.channel, { speedHz: 20000 }, (openErr) => {
     if (openErr) throw openErr;
 
     self.interval = setInterval(() => {
-      self.tempSensor.read((readErr, reading) => {
+      tempSensor.read((readErr, reading) => {
         if (readErr) throw readErr;
 
-        const temp = Math.round(((reading.value * 3.3) - 0.5) * 100);
+        const temperature = Math.round(((reading.value * 3.3) - 0.5) * 100);
+        const state = self.state;
 
-        if (temp !== data) {
-          data = temp;
-          self.emit('temperatureChange', data);
+        if (temperature !== state.temperature) {
+          state.temperature = temperature;
+          self.emit('temperatureChange', state);
+          self.state = state;
         }
       });
     }, 1000);
   });
+};
+
+Sensor.prototype.getChannel = function getChannel() {
+  return this.channel;
 };
 
 Sensor.prototype.stop = function stop() {

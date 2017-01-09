@@ -1,8 +1,7 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
-const Sensor = require('./sensor.js');
-const data = require('./config.js');
-const gpioutil = require('pi-gpioutil');
+const TargetSensor = require('./targetSensor.js');
+const AlarmSensor = require('./alarmSensor.js');
 
 function BBQController() {
   if (!(this instanceof BBQController)) return new BBQController();
@@ -11,67 +10,52 @@ function BBQController() {
 
   const self = this;
 
-  self.target = 20;
   self.sensors = [];
 
-  self.setFan = function setFan(isFanOn, callback) {
-    gpioutil.write(24, isFanOn, (err) => {
-      if (err) throw err;
-
-      if (callback) callback();
+  self.addSensorInternal = function addSensorInternal(sensor) {
+    sensor.on('temperatureChange', (state) => {
+      self.emit('temperatureChange', state);
     });
-  };
 
-  self.handleGrillChange = function handleGrillChange() {
-    const temp = data.grillSensor.temperature;
-
-    const belowTarget = temp < self.target;
-
-    self.setFan(belowTarget, () => {
-      data.fan = belowTarget;
-      self.emit('temperatureChange', data);
-    });
-  };
-
-  self.setupSensor = function setupSensor(sensorData, callback) {
-    const sensor = Sensor(sensorData.channel);
     self.sensors.push(sensor);
-
-    sensor.start();
-
-    sensor.on('temperatureChange', (temp) => {
-      sensorData.setTemperature(temp);
-
-      callback();
-    });
   };
 
-  self.setupSensor(data.grillSensor, () => {
-    self.handleGrillChange();
-  });
+  const targetSensor = TargetSensor();
 
-  data.otherSensors.forEach((sensorData) => {
-    self.setupSensor(sensorData, () => {
-      self.emit('temperatureChange', data);
-    });
-  });
+  self.targetSensor = targetSensor;
+
+  self.addSensorInternal(targetSensor);
 }
 
 inherits(BBQController, EventEmitter);
 
-BBQController.prototype.setTarget = function setTarget(target) {
-  console.log('Target: ', target);
+BBQController.prototype.setTarget = function setTarget(targetTemperature) {
+  this.targetSensor.setTarget(targetTemperature);
+};
 
+BBQController.prototype.addSensor = function addSensor(sensorData) {
   const self = this;
 
-  self.target = target;
+  const sensor = AlarmSensor(sensorData.channel, sensorData.name);
 
-  self.handleGrillChange();
+  self.addSensorInternal(sensor);
+
+  console.log(`Added sensor on channel ${sensorData.channel}`);
+};
+
+BBQController.prototype.removeSensor = function removeSensor(sensorData) {
+  const self = this;
+
+  const index = self.sensors.findIndex(sensor => (sensor.getChannel() === sensorData.channel));
+
+  self.sensors[index].stop();
+
+  self.sensors.splice(index, 1);
+
+  console.log(`Removed sensor on channel ${sensorData.channel}`);
 };
 
 BBQController.prototype.stop = function stop() {
-  this.setFan(false);
-
   this.sensors.forEach((s) => {
     s.stop();
   });

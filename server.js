@@ -17,5 +17,13 @@ backend.on('login', (db) => {
   db.on('setTargetTemperature', (temperature) => {
     bbq.setTarget(temperature);
   });
+
+  db.on('addSensor', (sensorData) => {
+    bbq.addSensor(sensorData);
+  });
+
+  db.on('removeSensor', (sensorData) => {
+    bbq.removeSensor(sensorData);
+  });
 });
 
