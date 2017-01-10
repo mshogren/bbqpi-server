@@ -22,7 +22,7 @@ function TargetSensor() {
 
   self.emitState = function emitState() {
     const state = self.state;
-    const temp = state.temperature;
+    const temp = state.currentTemperature;
 
     const belowTarget = temp < self.target;
 

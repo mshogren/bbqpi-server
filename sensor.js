@@ -30,8 +30,8 @@ Sensor.prototype.start = function start() {
         const temperature = Math.round(((reading.value * 3.3) - 0.5) * 100);
         const state = self.state;
 
-        if (temperature !== state.temperature) {
-          state.temperature = temperature;
+        if (temperature !== state.currentTemperature) {
+          state.currentTemperature = temperature;
           self.emit('temperatureChange', state);
           self.state = state;
         }
