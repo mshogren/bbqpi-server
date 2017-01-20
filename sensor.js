@@ -44,6 +44,10 @@ Sensor.prototype.getChannel = function getChannel() {
   return this.channel;
 };
 
+Sensor.prototype.setName = function setName(name) {
+  this.state.name = name;
+};
+
 Sensor.prototype.stop = function stop() {
   clearInterval(this.interval);
 };

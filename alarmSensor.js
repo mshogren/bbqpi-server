@@ -26,6 +26,10 @@ AlarmSensor.prototype.getChannel = function getChannel() {
   return this.sensor.getChannel();
 };
 
+AlarmSensor.prototype.setName = function setName(name) {
+  this.sensor.setName(name);
+};
+
 AlarmSensor.prototype.stop = function stop() {
   this.sensor.stop();
 };

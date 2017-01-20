@@ -43,6 +43,16 @@ BBQController.prototype.addSensor = function addSensor(sensorData) {
   console.log(`Added sensor on channel ${sensorData.channel}`);
 };
 
+BBQController.prototype.updateSensor = function updateSensor(sensorData) {
+  const self = this;
+
+  const index = self.sensors.findIndex(sensor => (sensor.getChannel() === sensorData.channel));
+
+  self.sensors[index].setName(sensorData.name);
+
+  console.log(`Updated sensor on channel ${sensorData.channel}`);
+};
+
 BBQController.prototype.removeSensor = function removeSensor(sensorData) {
   const self = this;
 

@@ -28,6 +28,12 @@ backend.on('login', (db) => {
     });
   }
 
+  if (db.listenerCount('updateSensor') === 0) {
+    db.on('updateSensor', (sensorData) => {
+      bbq.updateSensor(sensorData);
+    });
+  }
+
   if (db.listenerCount('removeSensor') === 0) {
     db.on('removeSensor', (sensorData) => {
       bbq.removeSensor(sensorData);

@@ -53,6 +53,10 @@ function FirebaseDatabase(firebase) {
     self.emit('addSensor', data.val());
   });
 
+  sensorRef.on('child_changed', (data) => {
+    self.emit('updateSensor', data.val());
+  });
+
   sensorRef.on('child_removed', (data) => {
     self.emit('removeSensor', data.val());
   });
