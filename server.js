@@ -1,5 +1,6 @@
 const bbq = require('./bbq')();
-const backend = require('./backend.js')();
+const pusher = require('./push.js')();
+const backend = require('./backend.js')(pusher.publicKey);
 
 const gracefulShutdown = function gracefulShutdown() {
   bbq.stop();
@@ -9,35 +10,38 @@ const gracefulShutdown = function gracefulShutdown() {
 process.on('SIGTERM', gracefulShutdown);
 process.on('SIGINT', gracefulShutdown);
 
+const addSingletonListener = function addSingletonListener(emitter, event, callback) {
+  if (emitter.listenerCount(event) === 0) {
+    emitter.on(event, callback);
+  }
+};
+
 backend.on('login', (db) => {
-  if (bbq.listenerCount('temperatureChange') === 0) {
-    bbq.on('temperatureChange', (data) => {
-      db.addState(data);
-    });
-  }
+  addSingletonListener(bbq, 'temperatureChange', (data) => {
+    db.addState(data);
+  });
 
-  if (db.listenerCount('setTargetTemperature') === 0) {
-    db.on('setTargetTemperature', (temperature) => {
-      bbq.setTarget(temperature);
+  addSingletonListener(bbq, 'alarm', (alarmData) => {
+    console.log(`Alarm: ${alarmData}`);
+    db.processSubscriptions((subscription) => {
+      pusher.sendNotification(subscription, 'Alarm');
     });
-  }
+  });
 
-  if (db.listenerCount('addSensor') === 0) {
-    db.on('addSensor', (sensorData) => {
-      bbq.addSensor(sensorData);
-    });
-  }
+  addSingletonListener(db, 'setTargetTemperature', (temperature) => {
+    bbq.setTarget(temperature);
+  });
 
-  if (db.listenerCount('updateSensor') === 0) {
-    db.on('updateSensor', (sensorData) => {
-      bbq.updateSensor(sensorData);
-    });
-  }
+  addSingletonListener(db, 'addSensor', (sensorData) => {
+    bbq.addSensor(sensorData);
+  });
 
-  if (db.listenerCount('removeSensor') === 0) {
-    db.on('removeSensor', (sensorData) => {
-      bbq.removeSensor(sensorData);
-    });
-  }
+  addSingletonListener(db, 'updateSensor', (sensorData) => {
+    bbq.updateSensor(sensorData);
+  });
+
+  addSingletonListener(db, 'removeSensor', (sensorData) => {
+    bbq.removeSensor(sensorData);
+  });
 });
 

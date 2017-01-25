@@ -15,15 +15,16 @@ function FirebaseDatabase(firebase) {
   const stateRef = baseRef.child('state');
   const targetTemperatureRef = baseRef.child('targetTemperature');
   const sensorRef = baseRef.child('sensor');
+  const subscriptionRef = baseRef.child('subscription');
 
   self.addStateWithTimestamp = function addStateWithTimestamp(state) {
     const data = Object.assign({}, state, { timestamp: firebase.database.ServerValue.TIMESTAMP });
 
-    stateRef.push(data).then(
-      () => {},
-      (err) => {
-        console.log(err);
-      });
+    stateRef.push(data).then(() => {}, console.log);
+  };
+
+  self.processSubscriptions = function processSubscriptionsInternal(callback) {
+    subscriptionRef.once('value', snapshot => snapshot.forEach(child => callback(child.val())));
   };
 
   const period = 1000 * 60 * 60 * 0.05;
@@ -33,11 +34,7 @@ function FirebaseDatabase(firebase) {
     const toDeleteRef = stateRef.orderByChild('timestamp').endAt((Date.now() - period));
     toDeleteRef.once('value', (toDelete) => {
       toDelete.forEach((child) => {
-        child.ref.remove().then(
-          () => {},
-          (err) => {
-            console.log(err);
-          });
+        child.ref.remove().then(() => {}, console.log);
       });
     });
   };
@@ -66,6 +63,10 @@ inherits(FirebaseDatabase, EventEmitter);
 
 FirebaseDatabase.prototype.addState = function addState(data) {
   this.addStateWithTimestamp(data);
+};
+
+FirebaseDatabase.prototype.processSubscriptions = function processSubscriptions(callback) {
+  this.getSubscriptions(callback);
 };
 
 FirebaseDatabase.prototype.stop = function stop() {

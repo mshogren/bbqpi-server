@@ -17,6 +17,10 @@ function BBQController() {
       self.emit('temperatureChange', state);
     });
 
+    sensor.on('alarm', (alarmData) => {
+      self.emit('alarm', alarmData);
+    });
+
     self.sensors.push(sensor);
   };
 
@@ -36,33 +40,39 @@ BBQController.prototype.setTarget = function setTarget(targetTemperature) {
 BBQController.prototype.addSensor = function addSensor(sensorData) {
   const self = this;
 
-  const sensor = AlarmSensor(sensorData.channel, sensorData.name);
+  const { channel } = sensorData;
+
+  const sensor = AlarmSensor(sensorData);
 
   self.addSensorInternal(sensor);
 
-  console.log(`Added sensor on channel ${sensorData.channel}`);
+  console.log(`Added sensor on channel ${channel}`);
 };
 
 BBQController.prototype.updateSensor = function updateSensor(sensorData) {
   const self = this;
 
-  const index = self.sensors.findIndex(sensor => (sensor.getChannel() === sensorData.channel));
+  const { channel } = sensorData;
 
-  self.sensors[index].setName(sensorData.name);
+  const index = self.sensors.findIndex(sensor => (sensor.getChannel() === channel));
 
-  console.log(`Updated sensor on channel ${sensorData.channel}`);
+  self.sensors[index].updateSensor(sensorData);
+
+  console.log(`Updated sensor on channel ${channel}`);
 };
 
 BBQController.prototype.removeSensor = function removeSensor(sensorData) {
   const self = this;
 
-  const index = self.sensors.findIndex(sensor => (sensor.getChannel() === sensorData.channel));
+  const { channel } = sensorData;
+
+  const index = self.sensors.findIndex(sensor => (sensor.getChannel() === channel));
 
   self.sensors[index].stop();
 
   self.sensors.splice(index, 1);
 
-  console.log(`Removed sensor on channel ${sensorData.channel}`);
+  console.log(`Removed sensor on channel ${channel}`);
 };
 
 BBQController.prototype.stop = function stop() {

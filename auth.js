@@ -36,9 +36,7 @@ function FirebaseAuth(firebase, googleOAuthConfig) {
     if (token.id_token) {
       clearInterval(self.requestInterval);
       const credential = firebase.auth.GoogleAuthProvider.credential(token.id_token);
-      firebase.auth().signInWithCredential(credential).catch((loginErr) => {
-        console.log(loginErr);
-      });
+      firebase.auth().signInWithCredential(credential).catch(console.log);
 
       if (token.refresh_token) {
         refreshtokenFile.refresh_token = token.refresh_token;
