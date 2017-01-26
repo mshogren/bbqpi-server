@@ -1,8 +1,8 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
 
-function FirebaseDatabase(firebase) {
-  if (!(this instanceof FirebaseDatabase)) return new FirebaseDatabase(firebase);
+function FirebaseDatabase(firebase, deviceKey) {
+  if (!(this instanceof FirebaseDatabase)) return new FirebaseDatabase(firebase, deviceKey);
 
   EventEmitter.call(this);
 
@@ -11,7 +11,7 @@ function FirebaseDatabase(firebase) {
   self.db = firebase.database();
 
   const uid = firebase.auth().currentUser.uid;
-  const baseRef = self.db.ref(`users/${uid}`);
+  const baseRef = self.db.ref(`users/${uid}/${deviceKey}`);
   const stateRef = baseRef.child('state');
   const targetTemperatureRef = baseRef.child('targetTemperature');
   const sensorRef = baseRef.child('sensor');

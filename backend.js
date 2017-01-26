@@ -5,8 +5,8 @@ const firebase = require('firebase');
 const auth = require('./auth.js');
 const db = require('./db.js');
 
-function FirebaseBackend() {
-  if (!(this instanceof FirebaseBackend)) return new FirebaseBackend();
+function FirebaseBackend(deviceKey) {
+  if (!(this instanceof FirebaseBackend)) return new FirebaseBackend(deviceKey);
 
   EventEmitter.call(this);
 
@@ -17,7 +17,7 @@ function FirebaseBackend() {
   self.auth = auth(firebase, config.googleOAuth);
 
   self.auth.on('login', () => {
-    self.db = self.db || db(firebase);
+    self.db = self.db || db(firebase, deviceKey);
     self.emit('login', self.db);
   });
 }
