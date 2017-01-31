@@ -11,11 +11,17 @@ function FirebaseDatabase(firebase, deviceKey) {
   self.db = firebase.database();
 
   const uid = firebase.auth().currentUser.uid;
-  const baseRef = self.db.ref(`users/${uid}/${deviceKey}`);
+  const userRef = self.db.ref(`users/${uid}`);
+  const baseRef = userRef.child(deviceKey);
+  const deviceRef = userRef.child('device');
   const stateRef = baseRef.child('state');
   const targetTemperatureRef = baseRef.child('targetTemperature');
   const sensorRef = baseRef.child('sensor');
   const subscriptionRef = baseRef.child('subscription');
+
+  deviceRef.child(deviceKey)
+    .update({ timestamp: firebase.database.ServerValue.TIMESTAMP })
+    .then(() => {}, console.log);
 
   self.addStateWithTimestamp = function addStateWithTimestamp(state) {
     const data = Object.assign({}, state, { timestamp: firebase.database.ServerValue.TIMESTAMP });
