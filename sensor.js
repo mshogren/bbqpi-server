@@ -13,6 +13,15 @@ function Sensor(channel, name) {
   if (name) this.state.name = name;
 
   EventEmitter.call(this);
+
+  const self = this;
+
+  self.calculateTemperature = function calculateTemperature(value) {
+    const celcius = ((value * 3.3) - 0.5) * 100;
+    const fahrenheit = (celcius * 1.8) + 32;
+
+    return Math.round(fahrenheit);
+  };
 }
 
 inherits(Sensor, EventEmitter);
@@ -27,7 +36,7 @@ Sensor.prototype.start = function start() {
       tempSensor.read((readErr, reading) => {
         if (readErr) throw readErr;
 
-        const temperature = Math.round(((reading.value * 3.3) - 0.5) * 100);
+        const temperature = self.calculateTemperature(reading.value);
         const state = self.state;
 
         if (temperature !== state.currentTemperature) {
@@ -42,6 +51,10 @@ Sensor.prototype.start = function start() {
 
 Sensor.prototype.getChannel = function getChannel() {
   return this.channel;
+};
+
+Sensor.prototype.getName = function getName() {
+  return this.state.name;
 };
 
 Sensor.prototype.setName = function setName(name) {

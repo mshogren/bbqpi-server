@@ -24,7 +24,7 @@ backend.on('login', (db) => {
   addSingletonListener(bbq, 'alarm', (alarmData) => {
     console.log(`Alarm: ${alarmData}`);
     db.processSubscriptions((subscription) => {
-      pusher.sendNotification(subscription, 'Alarm');
+      pusher.sendNotification(subscription, JSON.stringify(alarmData));
     });
   });
 
