@@ -33,7 +33,7 @@ function FirebaseDatabase(firebase, deviceKey) {
     subscriptionRef.once('value', snapshot => snapshot.forEach(child => callback(child.val())));
   };
 
-  const period = 1000 * 60 * 60 * 0.05;
+  const period = 1000 * 60 * 60 * 8;
 
   const truncateData = function truncateData() {
     console.log('Truncating');
@@ -46,7 +46,7 @@ function FirebaseDatabase(firebase, deviceKey) {
   };
 
   truncateData();
-  self.truncateInterval = setInterval(truncateData, period);
+  self.truncateInterval = setInterval(truncateData, period / 160);
 
   targetTemperatureRef.on('value', (data) => {
     self.emit('setTargetTemperature', data.val());
