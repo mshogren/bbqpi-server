@@ -23,7 +23,7 @@
     "mcp-spi-adc": "^0.4.0",
     "pi-gpioutil": "0.0.3",
     "request": "^2.79.0",
-    "web-push": "^3.2.1"
+    "web-push": "^3.2.2"
   },
   "devDependencies": {
     "eslint": "^3.15.0",
