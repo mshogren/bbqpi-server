@@ -9,6 +9,14 @@ A node and firebase based service to install on a Raspberry Pi for controlling a
 Eventually I will put up a circuit diagram and some photos along with some instructions in case any one else wants to try building something like this.
 
 ## Running ##
+First get the source and install the dependencies:
+
+```
+git clone https://github.com/mshogren/bbqpi-server.git
+cd bbqpi-server
+npm install
+```
+
 To run the service you will require a file called `config.json` in the root of the project directory.  That file should contain the information required to initialize the [Firebase SDK](https://firebase.google.com/docs/web/setup) and to authenticate using [Google OAuth Device Flow](https://developers.google.com/identity/sign-in/devices).
 
 This is what it should look like:
