@@ -4,7 +4,7 @@
   "description": "A place to explore using a Raspberry Pi with JavaScript",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "posttest": "eslint ."
   },
   "repository": {
@@ -29,6 +29,7 @@
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.9.0"
+    "eslint-plugin-react": "^6.9.0",
+    "jest": "^18.1.0"
   }
 }
