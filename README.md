@@ -8,6 +8,27 @@ A node and firebase based service to install on a Raspberry Pi for controlling a
 
 Eventually I will put up a circuit diagram and some photos along with some instructions in case any one else wants to try building something like this.
 
+## Running ##
+To run the service you will require a file called `config.json` in the root of the project directory.  That file should contain the information required to initialize the [Firebase SDK](https://firebase.google.com/docs/web/setup) and to authenticate using [Google OAuth Device Flow](https://developers.google.com/identity/sign-in/devices).
+
+This is what it should look like:
+  
+```
+{                                                                                           
+  "firebaseConfig": {                                                                       
+    "apiKey": "<API_KEY>",                                    
+    "databaseURL": "https://<DATABASE_NAME>.firebaseio.com"                                     
+  },                                                                                        
+  "googleOAuthConfig": {                                                                    
+    "deviceRequestUrl": "https://accounts.google.com/o/oauth2/device/code",                 
+    "client_id": "<CLIENT_ID>",
+    "client_secret": "<CLIENT_SECRET>",                                            
+    "scope": "email profile",                                                               
+    "tokenRequestUrl": "https://www.googleapis.com/oauth2/v4/token"                         
+  }
+}
+```
+
 ## GPIO ##
 One important thing that trips me up from time to time is making sure that the server has permissions to access the GPIO pins I am using.  I use the [gpio utility](http://wiringpi.com/the-gpio-utility/) from the [WiringPi project](http://wiringpi.com).  
 
