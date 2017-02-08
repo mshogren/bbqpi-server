@@ -37,6 +37,4 @@ jspm_packages
 .node_repl_history
 
 *.un~
-backendConfig.js
-refreshToken.json
-pushConfig.json
+config.json
