@@ -1,21 +1,15 @@
 const webpush = require('web-push');
-const fs = require('fs');
-const pushConfigFile = require('./pushConfig.json');
+const config = require('./config');
 
 function WebPush() {
   if (!(this instanceof WebPush)) return new WebPush();
 
-  const { publicKey, privateKey } = pushConfigFile.publicKey
-    ? pushConfigFile
-    : webpush.generateVAPIDKeys();
+  const pushConfig = config.getSync('pushConfig');
 
-  if (!pushConfigFile.publicKey) {
-    pushConfigFile.publicKey = publicKey;
-    pushConfigFile.privateKey = privateKey;
+  const { publicKey, privateKey } = pushConfig || webpush.generateVAPIDKeys();
 
-    fs.writeFile('./pushConfig.json', JSON.stringify(pushConfigFile), (fileErr) => {
-      if (fileErr) console.log(fileErr);
-    });
+  if (!pushConfig) {
+    config.save('pushConfig', { publicKey, privateKey }, console.log);
   }
 
   this.publicKey = publicKey;

@@ -1,7 +1,7 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
-const config = require('./backendConfig.js');
 const firebase = require('firebase');
+const config = require('./config.js');
 const auth = require('./auth.js');
 const db = require('./db.js');
 
@@ -12,9 +12,9 @@ function FirebaseBackend(deviceKey) {
 
   const self = this;
 
-  firebase.initializeApp(config.firebase);
+  firebase.initializeApp(config.getSync('firebaseConfig'));
 
-  self.auth = auth(firebase, config.googleOAuth);
+  self.auth = auth(firebase);
 
   self.auth.on('login', () => {
     self.db = self.db || db(firebase, deviceKey);

@@ -1,11 +1,10 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
 const request = require('request');
-const fs = require('fs');
-const refreshtokenFile = require('./refreshToken.json');
+const config = require('./config');
 
-function FirebaseAuth(firebase, googleOAuthConfig) {
-  if (!(this instanceof FirebaseAuth)) return new FirebaseAuth(firebase, googleOAuthConfig);
+function FirebaseAuth(firebase) {
+  if (!(this instanceof FirebaseAuth)) return new FirebaseAuth(firebase);
 
   EventEmitter.call(this);
 
@@ -19,7 +18,7 @@ function FirebaseAuth(firebase, googleOAuthConfig) {
     client_secret,
     scope,
     tokenRequestUrl,
-  } = googleOAuthConfig;
+  } = config.getSync('googleOAuthConfig');
 
   const deviceRequestBody = {
     form: {
@@ -39,10 +38,7 @@ function FirebaseAuth(firebase, googleOAuthConfig) {
       firebase.auth().signInWithCredential(credential).catch(console.log);
 
       if (token.refresh_token) {
-        refreshtokenFile.refresh_token = token.refresh_token;
-        fs.writeFile('./refreshToken.json', JSON.stringify(refreshtokenFile), (fileErr) => {
-          if (fileErr) console.log(fileErr);
-        });
+        config.save('refreshToken', token.refresh_token, console.log);
       }
     } else if (token.error) {
       console.log(token.error);
@@ -82,20 +78,22 @@ function FirebaseAuth(firebase, googleOAuthConfig) {
   };
 
   const login = function login() {
-    if (refreshtokenFile.refresh_token) {
-      const refreshRequestBody = {
-        form: {
-          client_id,
-          client_secret,
-          refresh_token: refreshtokenFile.refresh_token,
-          grant_type: 'refresh_token',
-        },
-      };
+    config.get('refreshToken', (err, refreshToken) => {
+      if (refreshToken) {
+        const refreshRequestBody = {
+          form: {
+            client_id,
+            client_secret,
+            refresh_token: refreshToken,
+            grant_type: 'refresh_token',
+          },
+        };
 
-      request.post(tokenRequestUrl, refreshRequestBody, handleTokenResponse);
-    } else {
-      request.post(deviceRequestUrl, deviceRequestBody, handleDeviceResponse);
-    }
+        request.post(tokenRequestUrl, refreshRequestBody, handleTokenResponse);
+      } else {
+        request.post(deviceRequestUrl, deviceRequestBody, handleDeviceResponse);
+      }
+    });
   };
 
   firebase.auth().onAuthStateChanged((user) => {
