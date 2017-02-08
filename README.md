@@ -29,6 +29,14 @@ This is what it should look like:
 }
 ```
 
+I use [pm2](http://pm2.keymetrics.io/) to run the service and have it restarted between machine restarts
+
+    pm2 start server.js --watch --ignore-watch="config.json node_modules .git" --log-date-format="YYYY-MM-DD HH:mm:ss"
+
+Then I can use the folloowing command to monitor the logs in a console window
+
+    pm2 logs --timestamp
+
 ## GPIO ##
 One important thing that trips me up from time to time is making sure that the server has permissions to access the GPIO pins I am using.  I use the [gpio utility](http://wiringpi.com/the-gpio-utility/) from the [WiringPi project](http://wiringpi.com).  
 
