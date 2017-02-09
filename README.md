@@ -8,6 +8,24 @@ A node and firebase based service to install on a Raspberry Pi for controlling a
 
 Eventually I will put up a circuit diagram and some photos along with some instructions in case any one else wants to try building something like this.
 
+## Raspberry Pi ##
+
+There were just a few steps required to create an environment suitable for this code to run in on my Raspberry Pi:
+- I started by installing [NOOBS Lite](https://www.raspberrypi.org/documentation/installation/noobs.md) on my SDCard and then installing Raspbian Jessie Lite.
+
+- Then I installed [nodejs](https://nodejs.org) using these commands
+
+  ```
+  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+  ```
+  
+- The I installed Wiring-Pi
+
+  ```
+  sudo apt-get install wiringpi
+  ```
+
 ## Running ##
 First get the source and install the dependencies:
 
