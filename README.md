@@ -20,7 +20,7 @@ There were just a few steps required to create an environment suitable for this 
   sudo apt-get install -y nodejs
   ```
   
-- The I installed Wiring-Pi
+- The I installed [Wiring-Pi](http://wiringpi.com/)
 
   ```
   sudo apt-get install wiringpi
