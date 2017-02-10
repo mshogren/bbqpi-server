@@ -2,6 +2,24 @@ const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
 const mcpadc = require('mcp-spi-adc');
 
+function calculateTemperatureTMP36(reading) {
+  const celcius = ((reading.value * 3.3) - 0.5) * 100;
+  const fahrenheit = (celcius * 1.8) + 32;
+
+  return Math.round(fahrenheit);
+}
+
+function calculateTemperatureTX1000(reading) {
+  const R = 1e+4 * ((1023.0 / reading.rawValue) - 1.0);
+  const lnR = Math.log(R);
+
+  const kelvin = 1.0 / ((((lnR * lnR * 1.3193731e-7) + 2.0959138e-4) * lnR) + 7.6253948e-4);
+  const celcius = kelvin - 273.15;
+  const fahrenheit = (celcius * 1.8) + 32;
+
+  return Math.round(fahrenheit);
+}
+
 function Sensor(channel, name) {
   if (!(this instanceof Sensor)) return new Sensor(channel, name);
 
@@ -16,11 +34,10 @@ function Sensor(channel, name) {
 
   const self = this;
 
-  self.calculateTemperature = function calculateTemperature(value) {
-    const celcius = ((value * 3.3) - 0.5) * 100;
-    const fahrenheit = (celcius * 1.8) + 32;
-
-    return Math.round(fahrenheit);
+  self.calculateTemperature = function calculateTemperature(reading) {
+    return (self.channel === 0)
+      ? calculateTemperatureTMP36(reading)
+      : calculateTemperatureTX1000(reading);
   };
 }
 
@@ -36,7 +53,7 @@ Sensor.prototype.start = function start() {
       tempSensor.read((readErr, reading) => {
         if (readErr) throw readErr;
 
-        const temperature = self.calculateTemperature(reading.value);
+        const temperature = self.calculateTemperature(reading);
         const state = self.state;
 
         if (temperature !== state.currentTemperature) {
