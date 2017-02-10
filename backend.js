@@ -1,9 +1,9 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
 const firebase = require('firebase');
-const config = require('./config.js');
-const auth = require('./auth.js');
-const db = require('./db.js');
+const config = require('./config');
+const auth = require('./auth');
+const db = require('./db');
 
 function FirebaseBackend(deviceKey) {
   if (!(this instanceof FirebaseBackend)) return new FirebaseBackend(deviceKey);

@@ -1,6 +1,6 @@
 const bbq = require('./bbq')();
-const pusher = require('./push.js')();
-const backend = require('./backend.js')(pusher.publicKey);
+const pusher = require('./push')();
+const backend = require('./backend')(pusher.publicKey);
 
 const gracefulShutdown = function gracefulShutdown() {
   bbq.stop();

@@ -1,6 +1,6 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
-const Sensor = require('./sensor.js');
+const Sensor = require('./sensor');
 
 function AlarmSensor(sensorData) {
   if (!(this instanceof AlarmSensor)) {

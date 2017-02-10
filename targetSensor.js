@@ -1,7 +1,7 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
-const Sensor = require('./sensor.js');
 const gpioutil = require('pi-gpioutil');
+const Sensor = require('./sensor');
 
 function TargetSensor() {
   if (!(this instanceof TargetSensor)) return new TargetSensor();

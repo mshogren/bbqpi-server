@@ -1,7 +1,7 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
-const TargetSensor = require('./targetSensor.js');
-const AlarmSensor = require('./alarmSensor.js');
+const TargetSensor = require('./targetSensor');
+const AlarmSensor = require('./alarmSensor');
 
 function BBQController() {
   if (!(this instanceof BBQController)) return new BBQController();
