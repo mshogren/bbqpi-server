@@ -35,6 +35,13 @@
     "jest": "^18.1.0"
   },
   "jest": {
-    "collectCoverage": true
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/*.test.{js,jsx}",
+      "!.eslintrc.js",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ]
   }
 }
