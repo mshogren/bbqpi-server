@@ -59,7 +59,7 @@ This is what it should look like:
 
 I use [pm2](http://pm2.keymetrics.io/) to run the service and have it restarted between machine restarts
 
-    pm2 start server.js --watch --ignore-watch="config.json node_modules .git" --log-date-format="YYYY-MM-DD HH:mm:ss"
+    pm2 start src/server.js --watch --ignore-watch="config.json node_modules .git coverage .stryker-tmp" --log-date-format="YYYY-MM-DD HH:mm:ss"
 
 Then I can use the folloowing command to monitor the logs in a console window
 

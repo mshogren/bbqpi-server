@@ -1,8 +1,8 @@
 {
   "name": "bbqpi-server",
   "version": "1.0.0",
-  "description": "A place to explore using a Raspberry Pi with JavaScript",
-  "main": "server.js",
+  "description": "A node and firebase based service to install on a Raspberry Pi for controlling a charcoal bbq fan blower and temperature sensors.",
+  "main": "src/server.js",
   "scripts": {
     "test": "jest && codecov",
     "posttest": "eslint .",
@@ -42,11 +42,11 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!**/*.test.{js,jsx}",
-      "!.eslintrc.js",
-      "!**/node_modules/**",
-      "!**/coverage/**"
+      "src/**/*.{js,jsx}",
+      "!src/**/*.test.{js,jsx}"
+    ],
+    "testPathIgnorePatterns": [
+      "/.stryker-tmp/"
     ]
   }
 }

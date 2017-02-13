@@ -1,5 +1,5 @@
 const webpush = require('web-push');
-const config = require('./config');
+const config = require('../config');
 
 function WebPush() {
   if (!(this instanceof WebPush)) return new WebPush();

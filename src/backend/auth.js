@@ -1,7 +1,7 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
 const request = require('request');
-const config = require('./config');
+const config = require('../config');
 
 function FirebaseAuth(firebase) {
   if (!(this instanceof FirebaseAuth)) return new FirebaseAuth(firebase);

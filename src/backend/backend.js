@@ -1,7 +1,7 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
 const firebase = require('firebase');
-const config = require('./config');
+const config = require('../config');
 const auth = require('./auth');
 const db = require('./db');
 

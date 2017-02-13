@@ -1,9 +1,9 @@
 module.exports = (config) => {
   config.set({
-    files: ['temperature.js', 'temperature.test.js'],
-    mutate: ['temperature.js'],
+    files: ['src/**/*.js', 'src/**/*.test.js'],
+    mutate: ['src/**/*.js'],
     testRunner: 'jest',
     coverageAnalysis: 'off',
-    logLevel : 'debug',
+    logLevel: 'debug',
   });
 };
