@@ -4,9 +4,10 @@
   "description": "A node and firebase based service to install on a Raspberry Pi for controlling a charcoal bbq fan blower and temperature sensors.",
   "main": "src/server.js",
   "scripts": {
-    "test": "jest && codecov",
+    "test": "jest --coverage && codecov",
     "posttest": "eslint .",
-    "stryker": "stryker run stryker.conf.js"
+    "stryker": "stryker run stryker.conf.js",
+    "jest": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,6 @@
     "stryker-jest-runner": "0.0.5"
   },
   "jest": {
-    "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!src/**/*.test.{js,jsx}"

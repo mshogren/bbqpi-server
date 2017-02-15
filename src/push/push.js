@@ -19,7 +19,7 @@ function WebPush() {
 }
 
 WebPush.prototype.sendNotification = function sendNotification(subscription, payload, callback) {
-  webpush.sendNotification(subscription, payload)
+  return webpush.sendNotification(subscription, payload)
     .then(() => {
       if (callback) callback();
     })
