@@ -24,31 +24,35 @@ function Sensor(channel, name) {
 
     return Math.round(temperature);
   };
+
+  self.onReadSensorData = function onReadSensorData(readErr, reading) {
+    if (readErr) throw readErr;
+
+    const temperature = self.calculateTemperature(reading);
+    const state = self.state;
+
+    if (temperature !== state.currentTemperature) {
+      state.currentTemperature = temperature;
+      self.emit('temperatureChange', state);
+      self.state = state;
+    }
+  };
+
+  self.readSensorData = function readSensorData() {
+    self.tempSensor.read(self.onReadSensorData);
+  };
+
+  self.onChannelOpen = function onChannelOpen(openErr) {
+    if (openErr) throw openErr;
+
+    self.interval = setInterval(self.readSensorData, 1000);
+  };
 }
 
 inherits(Sensor, EventEmitter);
 
 Sensor.prototype.start = function start() {
-  const self = this;
-
-  const tempSensor = mcpadc.open(self.channel, { speedHz: 20000 }, (openErr) => {
-    if (openErr) throw openErr;
-
-    self.interval = setInterval(() => {
-      tempSensor.read((readErr, reading) => {
-        if (readErr) throw readErr;
-
-        const temperature = self.calculateTemperature(reading);
-        const state = self.state;
-
-        if (temperature !== state.currentTemperature) {
-          state.currentTemperature = temperature;
-          self.emit('temperatureChange', state);
-          self.state = state;
-        }
-      });
-    }, 1000);
-  });
+  this.tempSensor = mcpadc.open(this.channel, { speedHz: 20000 }, this.onChannelOpen);
 };
 
 Sensor.prototype.getChannel = function getChannel() {

@@ -1,5 +1,4 @@
 const pusher = require('./push');
-
 const config = require('../config');
 const webpush = require('web-push');
 
@@ -24,7 +23,7 @@ describe('The pusher constructor', () => {
 
     expect(pusher()).toMatchObject({ publicKey });
     expect(config.getSync).toHaveBeenCalledWith('pushConfig');
-    expect(config.save).toHaveBeenCalledTimes(0);
+    expect(config.save).not.toHaveBeenCalled();
     expect(webpush.setVapidDetails).toHaveBeenCalledWith(url, publicKey, privateKey);
   });
 
@@ -85,7 +84,7 @@ describe('the pusher sends notifications', () => {
     return pusher().sendNotification(subscription, payload, callback)
       .then(() => {})
       .catch(() => {
-        expect(callback).toHaveBeenCalledTimes(0);
+        expect(callback).not.toHaveBeenCalled();
         expect(webpush.sendNotification).toHaveBeenCalledWith(subscription, payload);
       });
   });
