@@ -12,12 +12,21 @@ function TargetSensor() {
 
   self.target = 20;
 
-  self.setFan = function setFan(isFanOn, callback) {
-    gpioutil.write(24, isFanOn, (err) => {
-      if (err) throw err;
+  self.onGPIOWrite = function onGPIOWrite(callback, isFanOn, err) {
+    if (err) throw err;
+    if (callback) callback(isFanOn);
+  };
 
-      if (callback) callback();
-    });
+  self.setFan = function setFan(isFanOn, callback) {
+    gpioutil.write(24, isFanOn, self.onGPIOWrite(callback, isFanOn));
+  };
+
+  self.onSetFan = function onSetFan(isFanOn) {
+    const state = self.state;
+    state.fan = isFanOn;
+    state.targetTemperature = self.target;
+    self.emit('temperatureChange', state);
+    self.state = state;
   };
 
   self.emitState = function emitState() {
@@ -26,12 +35,7 @@ function TargetSensor() {
 
     const belowTarget = temp < self.target;
 
-    self.setFan(belowTarget, () => {
-      state.fan = belowTarget;
-      state.targetTemperature = self.target;
-      self.emit('temperatureChange', state);
-      self.state = state;
-    });
+    self.setFan(belowTarget, self.onSetFan);
   };
 
   const sensor = Sensor(0);

@@ -26,6 +26,18 @@ describe('Sensor constructor', () => {
     });
     expect(sensor.state.name).not.toBeDefined();
   });
+
+  test('with null name', () => {
+    const sensor = Sensor(1, null);
+
+    expect(sensor).toMatchObject({
+      channel: 1,
+      state: {
+        channel: 1,
+      },
+    });
+    expect(sensor.state.name).not.toBeDefined();
+  });
 });
 
 test('start attempts to open the channel', () => {

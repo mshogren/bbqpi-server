@@ -17,16 +17,14 @@ function AlarmSensor(sensorData) {
   self.alarmTemperature = alarmTemperature;
 
   self.checkAlarm = function checkAlarm() {
-    if (self.alarmEnabled) {
-      if (self.currentTemperature >= self.alarmTemperature) {
-        self.emit('alarm', {
-          channel,
-          name: self.sensor.getName(),
-          alarmEnabled: self.alarmEnabled,
-          alarmTemperature: self.alarmTemperature,
-          currentTemperature: self.currentTemperature,
-        });
-      }
+    if (self.alarmEnabled && self.currentTemperature >= self.alarmTemperature) {
+      self.emit('alarm', {
+        channel,
+        name: self.sensor.getName(),
+        alarmEnabled: self.alarmEnabled,
+        alarmTemperature: self.alarmTemperature,
+        currentTemperature: self.currentTemperature,
+      });
     }
   };
 
