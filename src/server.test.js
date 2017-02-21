@@ -1,0 +1,119 @@
+const EventEmitter = require('events').EventEmitter;
+
+jest.mock('./bbq');
+jest.mock('./push');
+jest.mock('./backend');
+
+const Bbq = require('./bbq');
+const Pusher = require('./push');
+const Backend = require('./backend');
+
+const bbq = new EventEmitter();
+Bbq.mockReturnValue(bbq);
+
+Pusher.mockReturnValue({ publicKey: 'public key' });
+
+const backend = new EventEmitter();
+Backend.mockReturnValue(backend);
+
+const db = new EventEmitter();
+db.addState = jest.fn();
+db.processSubscriptions = jest.fn();
+
+beforeEach(() => {
+  require('./server'); // eslint-disable-line global-require
+});
+
+['SIGTERM', 'SIGINT'].forEach((signal) => {
+  test(`server shutsdown cleanly on ${signal}`, () => {
+    bbq.stop = jest.fn();
+    backend.stop = jest.fn();
+
+    process.emit(signal);
+
+    expect(bbq.stop).toHaveBeenCalled();
+    expect(backend.stop).toHaveBeenCalled();
+  });
+});
+
+test('when backend is authorized event listeners are setup', () => {
+  expect(bbq.eventNames()).toEqual([]);
+
+  backend.emit('login', db);
+
+  const bbqEvents = ['temperatureChange', 'alarm'];
+  expect(bbq.eventNames()).toEqual(bbqEvents);
+  bbqEvents.forEach(eventName => expect(bbq.listenerCount(eventName)).toEqual(1));
+
+  const dbEvents = ['setTargetTemperature', 'addSensor', 'updateSensor', 'removeSensor'];
+  expect(db.eventNames()).toEqual(dbEvents);
+  dbEvents.forEach(eventName => expect(db.listenerCount(eventName)).toEqual(1));
+});
+
+test('when backend is reauthorized event listeners are not duplicated', () => {
+  backend.emit('login', db);
+  backend.emit('login', db);
+
+  const bbqEvents = ['temperatureChange', 'alarm'];
+  expect(bbq.eventNames()).toEqual(bbqEvents);
+  bbqEvents.forEach(eventName => expect(bbq.listenerCount(eventName)).toEqual(1));
+
+  const dbEvents = ['setTargetTemperature', 'addSensor', 'updateSensor', 'removeSensor'];
+  expect(db.eventNames()).toEqual(dbEvents);
+  dbEvents.forEach(eventName => expect(db.listenerCount(eventName)).toEqual(1));
+});
+
+describe('when backend is authorized and listeners setup', () => {
+  beforeEach(() => {
+    backend.emit('login', db);
+  });
+
+  test('when a temperature change is detected add a state record to the database', () => {
+    const data = {};
+    bbq.emit('temperatureChange', data);
+
+    expect(db.addState).toHaveBeenCalledWith(data);
+  });
+
+  test('when an alarm is detected send push notifications', () => {
+    const alarmData = {};
+    bbq.emit('alarm', alarmData);
+
+    expect(db.processSubscriptions).toHaveBeenCalled();
+  });
+
+  test('when a target temperature is set in the database, set it on the bbq controller', () => {
+    bbq.setTarget = jest.fn();
+
+    db.emit('setTargetTemperature', 225);
+
+    expect(bbq.setTarget).toHaveBeenCalledWith(225);
+  });
+
+  test('when a sensor is added in the database, add it to the bbq controller', () => {
+    bbq.addSensor = jest.fn();
+
+    const sensorData = {};
+    db.emit('addSensor', sensorData);
+
+    expect(bbq.addSensor).toHaveBeenCalledWith(sensorData);
+  });
+
+  test('when a sensor is updated in the database, update the bbq controller', () => {
+    bbq.updateSensor = jest.fn();
+
+    const sensorData = {};
+    db.emit('updateSensor', sensorData);
+
+    expect(bbq.updateSensor).toHaveBeenCalledWith(sensorData);
+  });
+
+  test('when a sensor is removed in the database, remove it from the bbq controller', () => {
+    bbq.removeSensor = jest.fn();
+
+    const sensorData = {};
+    db.emit('removeSensor', sensorData);
+
+    expect(bbq.removeSensor).toHaveBeenCalledWith(sensorData);
+  });
+});
