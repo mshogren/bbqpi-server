@@ -1,19 +1,21 @@
 module.exports = (config) => {
   config.set({
     files: [
-      'src/config/**/*.js',
-      'src/push/**/*.js',
-      'src/bbq/sensor/**/*.js',
-      'src/**/*.test.js',
+      'src/**/*.js',
+      '!src/server*.js',
+      '!src/backend/**.js',
+      '!src/promisetest/**/*.js',
+      '!test/**/*.js',
     ],
     mutate: [
-      'src/config/**/*.js',
-      'src/push/**/*.js',
-      'src/bbq/sensor/**/*.js',
+      'src/**/*.js',
+      '!src/server*.js',
+      '!src/backend/**.js',
+      '!src/promisetest/**/*.js',
       '!src/**/*.test.js',
     ],
     testRunner: 'jest',
     coverageAnalysis: 'off',
-    // logLevel: 'debug',
+    // logLevel: 'trace',
   });
 };
