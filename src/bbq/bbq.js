@@ -24,6 +24,10 @@ function BBQController() {
     self.sensors.push(sensor);
   };
 
+  self.getSensorIndexByChannel = function getSensorIndexByChannel(channel) {
+    return self.sensors.findIndex(sensor => (sensor.getChannel() === channel));
+  };
+
   const targetSensor = TargetSensor();
 
   self.targetSensor = targetSensor;
@@ -54,7 +58,7 @@ BBQController.prototype.updateSensor = function updateSensor(sensorData) {
 
   const { channel } = sensorData;
 
-  const index = self.sensors.findIndex(sensor => (sensor.getChannel() === channel));
+  const index = self.getSensorIndexByChannel(channel);
 
   self.sensors[index].updateSensor(sensorData);
 
@@ -66,7 +70,7 @@ BBQController.prototype.removeSensor = function removeSensor(sensorData) {
 
   const { channel } = sensorData;
 
-  const index = self.sensors.findIndex(sensor => (sensor.getChannel() === channel));
+  const index = self.getSensorIndexByChannel(channel);
 
   self.sensors[index].stop();
 
