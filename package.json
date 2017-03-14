@@ -35,7 +35,7 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
     "jest": "^19.0.0",
-    "jest-cli": "^18.1.0",
+    "jest-cli": "^19.0.2",
     "stryker": "^0.5.8",
     "stryker-api": "^0.4.2",
     "stryker-jest-runner": "0.0.5"
