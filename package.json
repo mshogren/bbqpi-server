@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/mshogren/bbqpi-server#readme",
   "dependencies": {
-    "firebase": "^3.6.9",
+    "firebase": "^3.7.2",
     "jfs": "^0.2.6",
     "mcp-spi-adc": "^0.4.0",
     "pi-gpioutil": "0.0.3",
@@ -28,12 +28,12 @@
     "web-push": "^3.2.2"
   },
   "devDependencies": {
-    "codecov": "^2.0.1",
-    "eslint": "^3.15.0",
+    "codecov": "^2.0.2",
+    "eslint": "^3.17.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.9.0",
+    "eslint-plugin-react": "^6.10.0",
     "jest": "^19.0.0",
     "jest-cli": "^19.0.2",
     "stryker": "^0.5.8",

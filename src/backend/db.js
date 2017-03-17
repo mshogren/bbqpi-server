@@ -29,7 +29,7 @@ function FirebaseDatabase(firebase, deviceKey) {
     stateRef.push(data).then(() => {}, console.log);
   };
 
-  self.processSubscriptions = function processSubscriptionsInternal(callback) {
+  self.processSubscriptionsInternal = function processSubscriptionsInternal(callback) {
     subscriptionRef.once('value', snapshot => snapshot.forEach(child => callback(child.val())));
   };
 
@@ -72,7 +72,7 @@ FirebaseDatabase.prototype.addState = function addState(data) {
 };
 
 FirebaseDatabase.prototype.processSubscriptions = function processSubscriptions(callback) {
-  this.getSubscriptions(callback);
+  this.processSubscriptionsInternal(callback);
 };
 
 FirebaseDatabase.prototype.stop = function stop() {
