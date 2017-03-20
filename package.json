@@ -28,12 +28,12 @@
     "web-push": "^3.2.2"
   },
   "devDependencies": {
-    "codecov": "^2.0.2",
-    "eslint": "^3.17.1",
+    "codecov": "^2.1.0",
+    "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0",
+    "eslint-plugin-react": "^6.10.2",
     "jest": "^19.0.0",
     "jest-cli": "^19.0.2",
     "stryker": "^0.5.8",
