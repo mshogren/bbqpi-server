@@ -6,7 +6,7 @@ module.exports = {
     "es6": true,
     "jest": true
   },
-  "extends": "airbnb",
+  "extends": "airbnb-base",
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
@@ -17,7 +17,6 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react"
   ],
   "rules": {
     "no-console": "off",
