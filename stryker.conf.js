@@ -13,6 +13,8 @@ module.exports = (config) => {
     ],
     testRunner: 'jest',
     coverageAnalysis: 'off',
+    timeoutMs: 10000,
+    thresholds: { high: 80, low: 60, break: 80 },
     // logLevel: 'trace',
   });
 };

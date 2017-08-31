@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "test": "jest --coverage && codecov",
-    "posttest": "eslint src",
+    "posttest": "eslint src && stryker run stryker.conf.js",
     "stryker": "stryker run stryker.conf.js",
     "jest": "jest --watch"
   },
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/mshogren/bbqpi-server#readme",
   "dependencies": {
-    "firebase": "^4.2.0",
+    "firebase": "^4.3.0",
     "jfs": "^0.2.6",
     "mcp-spi-adc": "^0.4.0",
     "pi-gpioutil": "0.0.3",
@@ -29,14 +29,14 @@
   },
   "devDependencies": {
     "codecov": "^2.3.0",
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.3.2",
     "eslint-plugin-import": "^2.7.0",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
-    "stryker": "^0.7.0",
-    "stryker-api": "^0.6.0",
-    "stryker-jest-runner": "0.0.6"
+    "stryker": "^0.9.0",
+    "stryker-api": "^0.8.0",
+    "stryker-jest-runner": "^0.1.0"
   },
   "jest": {
     "collectCoverageFrom": [
