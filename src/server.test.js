@@ -1,4 +1,4 @@
-const EventEmitter = require('events').EventEmitter;
+const { EventEmitter } = require('events');
 
 jest.mock('./bbq');
 jest.mock('./push');

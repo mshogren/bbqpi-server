@@ -1,5 +1,5 @@
-const inherits = require('util').inherits;
-const EventEmitter = require('events').EventEmitter;
+const { inherits } = require('util');
+const { EventEmitter } = require('events');
 const request = require('request');
 const config = require('../config');
 
@@ -49,7 +49,13 @@ function FirebaseAuth(firebase) {
   };
 
   handleDeviceResponse = function handleDeviceResponseFunc(err, response, body) {
-    const { verification_url, expires_in, interval, device_code, user_code } = JSON.parse(body);
+    const {
+      verification_url,
+      expires_in,
+      interval,
+      device_code,
+      user_code,
+    } = JSON.parse(body);
 
     /* eslint-disable camelcase */
     console.log(`Verification Url: ${verification_url}, Code: ${user_code}`);

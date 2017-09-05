@@ -1,5 +1,5 @@
-const inherits = require('util').inherits;
-const EventEmitter = require('events').EventEmitter;
+const { inherits } = require('util');
+const { EventEmitter } = require('events');
 
 function FirebaseDatabase(firebase, deviceKey) {
   if (!(this instanceof FirebaseDatabase)) return new FirebaseDatabase(firebase, deviceKey);
@@ -10,7 +10,7 @@ function FirebaseDatabase(firebase, deviceKey) {
 
   self.db = firebase.database();
 
-  const uid = firebase.auth().currentUser.uid;
+  const { uid } = firebase.auth().currentUser;
   const userRef = self.db.ref(`users/${uid}`);
   const baseRef = userRef.child(deviceKey);
   const deviceRef = userRef.child('device');

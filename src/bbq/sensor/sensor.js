@@ -1,5 +1,5 @@
-const inherits = require('util').inherits;
-const EventEmitter = require('events').EventEmitter;
+const { inherits } = require('util');
+const { EventEmitter } = require('events');
 const mcpadc = require('mcp-spi-adc');
 const calculator = require('./temperature');
 
@@ -29,7 +29,7 @@ function Sensor(channel, name) {
     if (readErr) throw readErr;
 
     const temperature = self.calculateTemperature(reading);
-    const state = self.state;
+    const { state } = self;
 
     if (temperature !== state.currentTemperature) {
       state.currentTemperature = temperature;

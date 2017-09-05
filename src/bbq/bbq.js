@@ -1,5 +1,5 @@
-const inherits = require('util').inherits;
-const EventEmitter = require('events').EventEmitter;
+const { inherits } = require('util');
+const { EventEmitter } = require('events');
 const TargetSensor = require('./targetSensor');
 const AlarmSensor = require('./alarmSensor');
 

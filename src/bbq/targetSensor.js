@@ -1,5 +1,5 @@
-const inherits = require('util').inherits;
-const EventEmitter = require('events').EventEmitter;
+const { inherits } = require('util');
+const { EventEmitter } = require('events');
 const gpioutil = require('pi-gpioutil');
 const Sensor = require('./sensor');
 
@@ -22,7 +22,7 @@ function TargetSensor() {
   };
 
   self.onSetFan = function onSetFan(isFanOn) {
-    const state = self.state;
+    const { state } = self;
     state.fan = isFanOn;
     state.targetTemperature = self.target;
     self.emit('temperatureChange', state);
@@ -30,7 +30,7 @@ function TargetSensor() {
   };
 
   self.emitState = function emitState() {
-    const state = self.state;
+    const { state } = self;
     const temp = state.currentTemperature;
 
     const belowTarget = temp < self.target;

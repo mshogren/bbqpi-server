@@ -1,5 +1,5 @@
-const inherits = require('util').inherits;
-const EventEmitter = require('events').EventEmitter;
+const { inherits } = require('util');
+const { EventEmitter } = require('events');
 const Sensor = require('./sensor');
 
 function AlarmSensor(sensorData) {
@@ -9,7 +9,12 @@ function AlarmSensor(sensorData) {
 
   EventEmitter.call(this);
 
-  const { channel, name, alarmEnabled, alarmTemperature } = sensorData;
+  const {
+    channel,
+    name,
+    alarmEnabled,
+    alarmTemperature,
+  } = sensorData;
 
   const self = this;
 

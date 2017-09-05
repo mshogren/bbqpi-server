@@ -76,7 +76,7 @@ describe('the pusher sends notifications', () => {
     config.getSync.mockReturnValueOnce({ publicKey, privateKey });
 
     webpush.sendNotification.mockReturnValue(new Promise((resolve, reject) => {
-      reject('mock webpush error');
+      reject(new Error('mock webpush error'));
     }));
 
     const callback = jest.fn();
