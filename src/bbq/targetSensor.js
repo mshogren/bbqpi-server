@@ -12,16 +12,18 @@ function TargetSensor() {
 
   self.target = 20;
 
-  self.onGPIOWrite = function onGPIOWrite(callback, isFanOn, err) {
+  self.onGPIOWrite = function onGPIOWrite(isFanOn, callback, err) {
     if (err) throw err;
     if (callback) callback(isFanOn);
   };
 
+  self.onGPIOExport = function onGPIOExport(isFanOn, callback, err) {
+    if (err) throw err;
+    gpioutil.write(24, isFanOn, self.onGPIOWrite(isFanOn, callback));
+  };
+
   self.setFan = function setFan(isFanOn, callback) {
-    gpioutil.export(19, 'out', (err) => {
-      if (err) throw err;
-      gpioutil.write(24, isFanOn, self.onGPIOWrite(callback, isFanOn));
-    });
+    gpioutil.export(19, 'out', self.onGPIOExport(isFanOn, callback));
   };
 
   self.onSetFan = function onSetFan(isFanOn) {

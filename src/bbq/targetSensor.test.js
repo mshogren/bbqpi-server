@@ -78,12 +78,49 @@ describe('setFan', () => {
   [true, false].forEach((isFanOn) => {
     test(`when is fan on equals ${isFanOn} and there is no callback`, () => {
       const targetSensor = TargetSensor();
-      gpioutil.write = jest.fn();
+      gpioutil.export = jest.fn();
 
       targetSensor.setFan(isFanOn);
 
+      expect(gpioutil.export)
+        .toHaveBeenCalledWith(19, 'out', undefined);
+    });
+  });
+
+  [true, false].forEach((isFanOn) => {
+    test(`when is fan on equals ${isFanOn} and there is a callback`, () => {
+      const targetSensor = TargetSensor();
+      gpioutil.export = jest.fn();
+      const callback = jest.fn();
+
+      targetSensor.setFan(isFanOn, callback);
+
+      expect(gpioutil.export)
+        .toHaveBeenCalledWith(19, 'out', undefined);
+    });
+  });
+});
+
+describe('onGPIOExport', () => {
+  [true, false].forEach((isFanOn) => {
+    test('when an error has occured', () => {
+      const targetSensor = TargetSensor();
+      const callback = jest.fn();
+
+      expect(() => targetSensor.onGPIOExport(callback, isFanOn, 'GPIO export error')).toThrow();
+      expect(callback).not.toHaveBeenCalled();
+    });
+  });
+
+  [true, false].forEach((isFanOn) => {
+    test(`when is fan on equals ${isFanOn} and there is no callback`, () => {
+      const targetSensor = TargetSensor();
+      gpioutil.write = jest.fn();
+
+      targetSensor.onGPIOExport(isFanOn);
+
       expect(gpioutil.write)
-        .toHaveBeenCalledWith(24, isFanOn, targetSensor.onGPIOWrite(undefined, isFanOn));
+        .toHaveBeenCalledWith(24, isFanOn, undefined);
     });
   });
 
@@ -96,7 +133,7 @@ describe('setFan', () => {
       targetSensor.setFan(isFanOn, callback);
 
       expect(gpioutil.write)
-        .toHaveBeenCalledWith(24, isFanOn, targetSensor.onGPIOWrite(callback, isFanOn));
+        .toHaveBeenCalledWith(24, isFanOn, undefined);
     });
   });
 });
@@ -107,7 +144,7 @@ describe('onGPIOWrite', () => {
       const targetSensor = TargetSensor();
       const callback = jest.fn();
 
-      expect(() => targetSensor.onGPIOWrite(callback, isFanOn, 'GPIO write error')).toThrow();
+      expect(() => targetSensor.onGPIOWrite(isFanOn, callback, 'GPIO write error')).toThrow();
       expect(callback).not.toHaveBeenCalled();
     });
   });
@@ -117,7 +154,7 @@ describe('onGPIOWrite', () => {
       const targetSensor = TargetSensor();
       const callback = jest.fn();
 
-      targetSensor.onGPIOWrite(undefined, isFanOn);
+      targetSensor.onGPIOWrite(isFanOn);
 
       expect(callback).not.toHaveBeenCalled();
     });
@@ -128,7 +165,7 @@ describe('onGPIOWrite', () => {
       const targetSensor = TargetSensor();
       const callback = jest.fn();
 
-      targetSensor.onGPIOWrite(callback, isFanOn);
+      targetSensor.onGPIOWrite(isFanOn, callback);
 
       expect(callback).toHaveBeenCalledWith(isFanOn);
     });
@@ -165,7 +202,7 @@ test('getChannel gets the channel', () => {
   expect(targetSensor.getChannel()).toEqual(0);
 });
 
-test('setTarget sets the targt and emits a message', () => {
+test('setTarget sets the target and emits a message', () => {
   const targetSensor = TargetSensor();
   targetSensor.emitState = jest.fn();
 
