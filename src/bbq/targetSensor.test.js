@@ -95,8 +95,7 @@ describe('setFan', () => {
 
       targetSensor.setFan(isFanOn, callback);
 
-      expect(gpioutil.export)
-        .toHaveBeenCalledWith(19, 'out', undefined);
+      expect(gpioutil.export).toHaveBeenCalledWith(19, 'out', undefined);
     });
   });
 });
@@ -105,10 +104,11 @@ describe('onGPIOExport', () => {
   [true, false].forEach((isFanOn) => {
     test('when an error has occured', () => {
       const targetSensor = TargetSensor();
+      gpioutil.write = jest.fn();
       const callback = jest.fn();
 
-      expect(() => targetSensor.onGPIOExport(callback, isFanOn, 'GPIO export error')).toThrow();
-      expect(callback).not.toHaveBeenCalled();
+      expect(() => targetSensor.onGPIOExport(isFanOn, callback, 'GPIO export error')).toThrow();
+      expect(gpioutil.write).not.toHaveBeenCalled();
     });
   });
 
@@ -119,8 +119,7 @@ describe('onGPIOExport', () => {
 
       targetSensor.onGPIOExport(isFanOn);
 
-      expect(gpioutil.write)
-        .toHaveBeenCalledWith(24, isFanOn, undefined);
+      expect(gpioutil.write).toHaveBeenCalledWith(24, isFanOn, undefined);
     });
   });
 
@@ -132,8 +131,7 @@ describe('onGPIOExport', () => {
 
       targetSensor.setFan(isFanOn, callback);
 
-      expect(gpioutil.write)
-        .toHaveBeenCalledWith(24, isFanOn, undefined);
+      expect(gpioutil.write).toHaveBeenCalledWith(24, isFanOn, undefined);
     });
   });
 });
