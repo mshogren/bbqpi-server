@@ -11,7 +11,7 @@ function TargetSensor() {
   const self = this;
 
   self.emitState = function emitState(data) {
-    const state = { ...self.state, ...data };
+    const state = Object.assign({}, self.state, data);
     self.emit('temperatureChange', state);
     self.state = state;
   };
