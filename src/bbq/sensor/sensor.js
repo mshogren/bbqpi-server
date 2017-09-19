@@ -45,7 +45,7 @@ function Sensor(channel, name) {
   self.onChannelOpen = function onChannelOpen(openErr) {
     if (openErr) throw openErr;
 
-    self.interval = setInterval(self.readSensorData, 1000);
+    self.interval = setInterval(self.readSensorData, 3000);
   };
 }
 

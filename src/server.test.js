@@ -19,6 +19,7 @@ Backend.mockReturnValue(backend);
 const db = new EventEmitter();
 db.addState = jest.fn();
 db.processSubscriptions = jest.fn();
+db.getPreviousStates = jest.fn();
 
 beforeEach(() => {
   require('./server'); // eslint-disable-line global-require
@@ -37,9 +38,16 @@ beforeEach(() => {
 });
 
 test('when backend is authorized event listeners are setup', () => {
+  bbq.isFanControllerInitialized = jest.fn();
+  bbq.isFanControllerInitialized.mockReturnValueOnce(true);
+  db.getPreviousStates.mockClear();
+
   expect(bbq.eventNames()).toEqual([]);
 
   backend.emit('login', db);
+
+  expect(bbq.isFanControllerInitialized).toHaveBeenCalled();
+  expect(db.getPreviousStates).toHaveBeenCalled();
 
   const bbqEvents = ['temperatureChange', 'alarm'];
   expect(bbq.eventNames()).toEqual(bbqEvents);
@@ -51,8 +59,16 @@ test('when backend is authorized event listeners are setup', () => {
 });
 
 test('when backend is reauthorized event listeners are not duplicated', () => {
+  bbq.isFanControllerInitialized = jest.fn();
+  bbq.isFanControllerInitialized.mockReturnValueOnce(true);
+  bbq.isFanControllerInitialized.mockReturnValueOnce(false);
+  db.getPreviousStates.mockClear();
+
   backend.emit('login', db);
   backend.emit('login', db);
+
+  expect(bbq.isFanControllerInitialized).toHaveBeenCalledTimes(2);
+  expect(db.getPreviousStates).toHaveBeenCalledTimes(1);
 
   const bbqEvents = ['temperatureChange', 'alarm'];
   expect(bbq.eventNames()).toEqual(bbqEvents);

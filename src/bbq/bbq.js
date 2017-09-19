@@ -41,6 +41,14 @@ BBQController.prototype.setTarget = function setTarget(targetTemperature) {
   this.targetSensor.setTarget(targetTemperature);
 };
 
+BBQController.prototype.isFanControllerInitialized = function isFanControllerInitialized() {
+  return this.targetSensor.isFanControllerInitialized();
+};
+
+BBQController.prototype.initializeFanController = function initializeFanController(states) {
+  this.targetSensor.initializeFanController(states);
+};
+
 BBQController.prototype.addSensor = function addSensor(sensorData) {
   const self = this;
 

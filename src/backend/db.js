@@ -23,6 +23,14 @@ function FirebaseDatabase(firebase, deviceKey) {
     .update({ timestamp: firebase.database.ServerValue.TIMESTAMP })
     .then(() => {}, console.log);
 
+  self.getPreviousStatesInternal = function getPreviousStatesInternal(callback) {
+    stateRef.once('value', (snapshot) => {
+      const states = [];
+      snapshot.forEach(child => states.push(child.val()));
+      callback(states);
+    });
+  };
+
   self.addStateWithTimestamp = function addStateWithTimestamp(state) {
     const data = Object.assign({}, state, { timestamp: firebase.database.ServerValue.TIMESTAMP });
 
@@ -66,6 +74,10 @@ function FirebaseDatabase(firebase, deviceKey) {
 }
 
 inherits(FirebaseDatabase, EventEmitter);
+
+FirebaseDatabase.prototype.getPreviousStates = function getPreviousStates(callback) {
+  this.getPreviousStatesInternal(callback);
+};
 
 FirebaseDatabase.prototype.addState = function addState(data) {
   this.addStateWithTimestamp(data);

@@ -79,7 +79,7 @@ describe('when opening a channel', () => {
 
     sensor.onChannelOpen();
 
-    expect(setInterval).toHaveBeenCalledWith(sensor.readSensorData, 1000);
+    expect(setInterval).toHaveBeenCalledWith(sensor.readSensorData, 3000);
   });
 });
 

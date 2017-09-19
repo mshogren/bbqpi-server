@@ -35,6 +35,30 @@ test('BBQController reacts to temperature changes on target sensor', () => {
   expect(bbq.emit).toHaveBeenCalledWith('temperatureChange', { state: 'state' });
 });
 
+[true, false].forEach((isInitialized) => {
+  test(`isFanControllerInitialized when fan controller initialized is ${isInitialized}`, () => {
+    const bbq = BBQController();
+
+    bbq.targetSensor.isFanControllerInitialized = jest.fn(() => (isInitialized));
+
+    const actual = bbq.isFanControllerInitialized();
+
+    expect(bbq.targetSensor.isFanControllerInitialized).toHaveBeenCalled();
+    expect(actual).toEqual(isInitialized);
+  });
+});
+
+test('initializeFanController initializes the fan controller', () => {
+  const bbq = BBQController();
+  bbq.targetSensor.initializeFanController = jest.fn();
+
+  const states = { state1: 1, state2: 2 };
+
+  bbq.initializeFanController(states);
+
+  expect(bbq.targetSensor.initializeFanController).toHaveBeenCalledWith(states);
+});
+
 test('setTarget sets the target temperature on the target sensor', () => {
   const bbq = BBQController();
 

@@ -17,6 +17,12 @@ const addSingletonListener = function addSingletonListener(emitter, event, callb
 };
 
 backend.on('login', (db) => {
+  if (bbq.isFanControllerInitialized()) {
+    db.getPreviousStates((states) => {
+      bbq.initializeFanController(states);
+    });
+  }
+
   addSingletonListener(bbq, 'temperatureChange', (data) => {
     db.addState(data);
   });
