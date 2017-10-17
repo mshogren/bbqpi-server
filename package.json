@@ -7,7 +7,8 @@
     "test": "jest --coverage && codecov",
     "posttest": "eslint src && stryker run stryker.conf.js",
     "stryker": "stryker run stryker.conf.js",
-    "jest": "jest --watch"
+    "jest": "jest --watch",
+    "commitmsg": "commitlint -e $GIT_PARAMS"
   },
   "repository": {
     "type": "git",
@@ -28,10 +29,14 @@
     "web-push": "^3.2.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^4.2.0",
+    "@commitlint/config-angular": "^4.2.0",
     "codecov": "^2.3.1",
+    "cz-conventional-changelog": "^2.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.7.0",
+    "husky": "^0.14.3",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
     "stryker": "^0.11.2",
@@ -46,5 +51,10 @@
     "testPathIgnorePatterns": [
       "/.stryker-tmp/"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
