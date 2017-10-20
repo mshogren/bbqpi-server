@@ -2,12 +2,12 @@ dist: trusty
 sudo: false
 language : node_js
 node_js:
-  - "8"
+- "8"
 cache:
   directories:
   - node_modules
 before_install: git fetch --unshallow
 script:
-  - ./node_modules/.bin/commitlint --from="$TRAVIS_BRANCH" --to="$TRAVIS_COMMIT"
-  - ./node_modules/.bin/commitlint --from=$TRAVIS_COMMIT~1
-  - npm test
+- ./node_modules/.bin/commitlint --from="$TRAVIS_BRANCH" --to="$TRAVIS_COMMIT"
+- ./node_modules/.bin/commitlint --from=$TRAVIS_COMMIT~1
+- npm test
