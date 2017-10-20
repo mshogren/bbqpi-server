@@ -14,6 +14,7 @@ RUN wget -O - -q https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | ap
 RUN echo "deb http://archive.raspberrypi.org/debian jessie main" | tee --append /etc/apt/sources.list
 RUN apt-get update && apt-get install -y wiringpi
 
+RUN npm config set unsafe-perm true
 RUN npm install -g pm2
 
 ADD package.json .
