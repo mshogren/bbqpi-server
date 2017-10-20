@@ -1,0 +1,3 @@
+[submodule "armv7hf-debian-qemu"]
+	path = armv7hf-debian-qemu
+	url = https://github.com/resin-io-projects/armv7hf-debian-qemu.git
