@@ -4,7 +4,9 @@ const config = require('../config');
 function WebPush() {
   if (!(this instanceof WebPush)) return new WebPush();
 
-  const pushConfig = config.getSync('pushConfig');
+  let pushConfig = config.getSync('pushConfig');
+
+  if (!pushConfig.publicKey) pushConfig = undefined;
 
   const { publicKey, privateKey } = pushConfig || webpush.generateVAPIDKeys();
 
