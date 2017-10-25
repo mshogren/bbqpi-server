@@ -1,0 +1,98 @@
+[[bbqpi-server]]
+bbqpi-server
+------------
+
+https://travis-ci.org/mshogren/bbqpi-server[image:https://travis-ci.org/mshogren/bbqpi-server.svg?branch=master[Build Status]]
+
+https://codecov.io/gh/mshogren/bbqpi-server[image:https://codecov.io/gh/mshogren/bbqpi-server/branch/master/graph/badge.svg[codecov]]
+
+https://greenkeeper.io/[image:https://badges.greenkeeper.io/mshogren/bbqpi-server.svg[Greenkeeper badge]]
+
+A node and firebase based service to install on a Raspberry Pi for controlling a charcoal bbq fan blower and temperature sensors.
+
+[[circuit-design]]
+Circuit Design
+~~~~~~~~~~~~~~
+
+image:/diagrams/bbqpi_bb.png[bbqpi Breadboard Diagram]
+
+[[raspberry-pi]]
+Raspberry Pi
+~~~~~~~~~~~~
+
+There were just a few steps required to create an environment suitable for this code to run in on my Raspberry Pi: - I started by installing https://www.raspberrypi.org/documentation/installation/noobs.md[NOOBS Lite] on my SDCard and then installing Raspbian Jessie Lite.
+
+* Then I installed https://nodejs.org[nodejs] using these commands
+
+....
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -   
+sudo apt-get install -y nodejs
+....
+
+* Then I installed http://wiringpi.com/[Wiring-Pi]
+
+....
+sudo apt-get install wiringpi
+....
+
+[[running]]
+Running
+~~~~~~~
+
+First get the source and install the dependencies:
+
+....
+git clone https://github.com/mshogren/bbqpi-server.git
+cd bbqpi-server
+npm install
+....
+
+To run the service you will require a file called `config.json` in the root of the project directory. That file should contain the information required to initialize the https://firebase.google.com/docs/web/setup[Firebase SDK] and to authenticate using https://developers.google.com/identity/sign-in/devices[Google OAuth Device Flow].
+
+This is what it should look like:
+
+....
+
+{
+  "firebaseConfig": {
+    "apiKey": "<API_KEY>",
+    "databaseURL": "https://<DATABASE_NAME>.firebaseio.com"
+  },
+  "googleOAuthConfig": {
+    "deviceRequestUrl": "https://accounts.google.com/o/oauth2/device/code",
+    "client_id": "<CLIENT_ID>",
+    "client_secret": "<CLIENT_SECRET>",
+    "scope": "email profile",
+    "tokenRequestUrl": "https://www.googleapis.com/oauth2/v4/token"
+  }
+
+}
+....
+
+I use http://pm2.keymetrics.io/[pm2] to run the service and have it restarted between machine restarts
+
+....
+pm2 start src/server.js --watch --ignore-watch="config.json node_modules .git coverage .stryker-tmp" --log-date-format="YYYY-MM-DD HH:mm:ss"
+....
+
+Then I can use the folloowing command to monitor the logs in a console window
+
+....
+pm2 logs --timestamp
+....
+
+[[gpio]]
+GPIO
+~~~~
+
+One important thing that trips me up from time to time is making sure that the server has permissions to access the GPIO pins I am using. I use the http://wiringpi.com/the-gpio-utility/[gpio utility] from the http://wiringpi.com[WiringPi project].
+
+If you are using Raspbian Jessie it can be install using:
+
+....
+sudo apt-get install wiringpi
+....
+
+There is also a wrapper for WiringPi available as an npm package called https://www.npmjs.com/package/pi-gpioutil[pi-gpioutil].
+
+Note the pin I am using for the fan is exported by the gpio utility using its BCM-GPIO pin number which is 19. Unfortunately WiringPi uses a different numbering scheme to write to the pin where it is number 24. For more see https://pinout.xyz/pinout/wiringpi[this].
