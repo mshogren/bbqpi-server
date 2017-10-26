@@ -1,3 +1,4 @@
+== bbqpi-server
 :toc: macro
 
 https://travis-ci.org/mshogren/bbqpi-server[image:https://travis-ci.org/mshogren/bbqpi-server.svg?branch=master[Build Status]]
