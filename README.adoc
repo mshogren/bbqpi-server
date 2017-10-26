@@ -1,6 +1,4 @@
-[[bbqpi-server]]
-bbqpi-server
-------------
+:toc: macro
 
 https://travis-ci.org/mshogren/bbqpi-server[image:https://travis-ci.org/mshogren/bbqpi-server.svg?branch=master[Build Status]]
 
@@ -10,15 +8,11 @@ https://greenkeeper.io/[image:https://badges.greenkeeper.io/mshogren/bbqpi-serve
 
 A node and firebase based service to install on a Raspberry Pi for controlling a charcoal bbq fan blower and temperature sensors.
 
-[[circuit-design]]
-Circuit Design
-~~~~~~~~~~~~~~
+=== Circuit Design
 
 image:/diagrams/bbqpi_bb.png[bbqpi Breadboard Diagram]
 
-[[raspberry-pi]]
-Raspberry Pi
-~~~~~~~~~~~~
+=== Raspberry Pi
 
 There were just a few steps required to create an environment suitable for this code to run in on my Raspberry Pi: - I started by installing https://www.raspberrypi.org/documentation/installation/noobs.md[NOOBS Lite] on my SDCard and then installing Raspbian Jessie Lite.
 
@@ -35,9 +29,7 @@ sudo apt-get install -y nodejs
 sudo apt-get install wiringpi
 ....
 
-[[running]]
-Running
-~~~~~~~
+=== Running
 
 First get the source and install the dependencies:
 
@@ -81,9 +73,7 @@ Then I can use the folloowing command to monitor the logs in a console window
 pm2 logs --timestamp
 ....
 
-[[gpio]]
-GPIO
-~~~~
+=== GPIO
 
 One important thing that trips me up from time to time is making sure that the server has permissions to access the GPIO pins I am using. I use the http://wiringpi.com/the-gpio-utility/[gpio utility] from the http://wiringpi.com[WiringPi project].
 
