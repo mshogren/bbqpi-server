@@ -8,6 +8,8 @@ https://greenkeeper.io/[image:https://badges.greenkeeper.io/mshogren/bbqpi-serve
 
 A node and firebase based service to install on a Raspberry Pi for controlling a charcoal bbq fan blower and temperature sensors.
 
+toc::[]
+
 === Circuit Design
 
 image:/diagrams/bbqpi_bb.png[bbqpi Breadboard Diagram]
