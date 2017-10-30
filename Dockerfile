@@ -6,9 +6,9 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-ADD armv7hf-debian-qemu/bin /usr/bin
+# ADD armv7hf-debian-qemu/bin /usr/bin
 
-RUN [ "cross-build-start" ]
+# RUN [ "cross-build-start" ]
 
 RUN wget -O - -q https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -
 RUN echo "deb http://archive.raspberrypi.org/debian jessie main" | tee --append /etc/apt/sources.list
@@ -22,7 +22,7 @@ ADD package.json .
 RUN npm install --production
 RUN npm cache clean --force
 
-RUN [ "cross-build-end" ]
+# RUN [ "cross-build-end" ]
 
 ADD src src
 
