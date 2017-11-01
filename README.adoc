@@ -70,7 +70,7 @@ I use http://pm2.keymetrics.io/[pm2] to run the service and have it restarted be
 pm2 start src/server.js --watch --ignore-watch="config.json node_modules .git coverage .stryker-tmp" --log-date-format="YYYY-MM-DD HH:mm:ss"
 ....
 
-Then I can use the folloowing command to monitor the logs in a console window
+Then I can use the following command to monitor the logs in a console window
 
 ....
 pm2 logs --timestamp
