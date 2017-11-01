@@ -1,3 +1,7 @@
+const path = require('path');
 const Store = require('jfs');
 
-module.exports = new Store('/data/config.json', { type: 'single', pretty: true });
+const basePath = process.env.RESIN ? '/data' : 'config';
+const filePath = path.join(basePath, 'config.json');
+
+module.exports = new Store(filePath, { type: 'single', pretty: true });
