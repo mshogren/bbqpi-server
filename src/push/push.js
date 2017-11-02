@@ -6,7 +6,7 @@ function WebPush() {
 
   let pushConfig = config.getSync('pushConfig');
 
-  if (!pushConfig.publicKey) pushConfig = undefined;
+  if (!pushConfig || !pushConfig.publicKey) pushConfig = undefined;
 
   const { publicKey, privateKey } = pushConfig || webpush.generateVAPIDKeys();
 
