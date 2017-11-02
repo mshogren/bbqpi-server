@@ -38,4 +38,4 @@ jspm_packages
 
 *.un~
 .stryker-tmp
-config.json
+config

@@ -1,29 +1,29 @@
 FROM arm32v7/node:latest
-# FROM resin/raspberrypi3-node:latest
-
-ENV NODE_ENV=production
-# ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 WORKDIR /app
 
-# ADD armv7hf-debian-qemu/bin /usr/bin
+ENV NODE_ENV=production \
+  NPM_CONFIG_PREFIX=/home/node/.npm-global \
+  PATH="${PATH}:/home/node/.npm-global/bin"
 
-# RUN [ "cross-build-start" ]
+RUN groupmod -g 999 node && usermod -u 999 -g 999 node
 
-RUN wget -O - -q https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -
-RUN echo "deb http://archive.raspberrypi.org/debian jessie main" | tee --append /etc/apt/sources.list
-RUN apt-get update && apt-get install -y wiringpi
-
-RUN npm config set unsafe-perm true
-RUN npm install -g pm2
+RUN wget -O - -q https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - \
+  && echo "deb http://archive.raspberrypi.org/debian jessie main" | tee --append /etc/apt/sources.list \
+  && apt-get update \
+  && apt-get install -y wiringpi \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 ADD package.json .
 
-RUN npm install --production
-RUN npm cache clean --force
-
-# RUN [ "cross-build-end" ]
+RUN npm config set unsafe-perm true \
+  && npm install -g pm2 \
+  && npm install --production \
+  && npm cache clean --force
 
 ADD src src
+
+USER node
 
 CMD ["pm2-docker", "src/server.js"]

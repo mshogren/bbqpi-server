@@ -39,4 +39,5 @@ jspm_packages
 .git
 *.un~
 .stryker-tmp
-config.json
+config
+diagrams
