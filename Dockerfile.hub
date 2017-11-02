@@ -6,11 +6,11 @@ ENV NODE_ENV=production \
   NPM_CONFIG_PREFIX=/home/node/.npm-global \
   PATH="${PATH}:/home/node/.npm-global/bin"
 
-RUN groupmod -g 999 node && usermod -u 999 -g 999 node
-
 ADD armv7hf-debian-qemu/bin /usr/bin
 
 RUN [ "cross-build-start" ]
+
+RUN groupmod -g 999 node && usermod -u 999 -g 999 node
 
 RUN wget -O - -q https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - \
   && echo "deb http://archive.raspberrypi.org/debian jessie main" | tee --append /etc/apt/sources.list \
