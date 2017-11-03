@@ -15,7 +15,7 @@ module.exports = (config) => {
     coverageAnalysis: 'off',
     maxConcurrentTestRunners: 2,
     timeoutMs: 10000,
-    thresholds: { high: 80, low: 60, break: 80 },
+    thresholds: { high: 80, low: 60, break: 60 },
     // logLevel: 'trace',
   });
 };
