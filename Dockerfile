@@ -22,8 +22,4 @@ RUN npm config set unsafe-perm true \
 
 ADD src src
 
-# RUN groupmod -g 999 node && usermod -u 999 -g 999 node
-
-USER node
-
 CMD ["pm2-docker", "src/server.js"]
