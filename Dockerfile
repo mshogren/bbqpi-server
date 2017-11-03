@@ -24,6 +24,6 @@ RUN npm config set unsafe-perm true \
 
 ADD src src
 
-USER node
+# USER node
 
 CMD ["pm2-docker", "src/server.js"]
