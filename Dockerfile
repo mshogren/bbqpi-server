@@ -6,8 +6,6 @@ ENV NODE_ENV=production \
   NPM_CONFIG_PREFIX=/home/node/.npm-global \
   PATH="${PATH}:/home/node/.npm-global/bin"
 
-RUN groupmod -g 999 node && usermod -u 999 -g 999 node
-
 RUN wget -O - -q https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - \
   && echo "deb http://archive.raspberrypi.org/debian jessie main" | tee --append /etc/apt/sources.list \
   && apt-get update \
@@ -24,6 +22,8 @@ RUN npm config set unsafe-perm true \
 
 ADD src src
 
-# USER node
+# RUN groupmod -g 999 node && usermod -u 999 -g 999 node
+
+USER node
 
 CMD ["pm2-docker", "src/server.js"]
