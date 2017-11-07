@@ -11,7 +11,8 @@ function HttpServer() {
 
   const httpRequestHandler = function httpRequestHandler(req, res) {
     res.setHeader('Content-Type', 'application/json');
-    if (request) {
+    console.log(req.url);
+    if (req) {
       if (process.env.RESIN) {
         const resinSupervisorUrl = `${process.env.RESIN_SUPERVISOR_ADDRESS}/v1/device?apikey=${process.env.RESIN_SUPERVISOR_API_KEY}`;
         request.get(resinSupervisorUrl, (err, response, body) => {
