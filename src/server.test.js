@@ -1,5 +1,6 @@
 const { EventEmitter } = require('events');
 
+jest.mock('./http');
 jest.mock('./bbq');
 jest.mock('./push');
 jest.mock('./backend');
