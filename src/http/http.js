@@ -6,17 +6,28 @@ function HttpServer() {
   if (!(this instanceof HttpServer)) return new HttpServer();
 
   const port = 80;
-  const resinSupervisorUrl = `${process.env.RESIN_SUPERVISOR_ADDRESS}/v1/device?apikey=${process.env.RESIN_SUPERVISOR_API_KEY}`;
 
   this.deviceStatus = {};
 
-  http.createServer((req, res) => {
-    request.get(resinSupervisorUrl, (err, resinResponse, body) => {
-      console.log(body);
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify(this.deviceStatus));
-    });
-  }).listen(port);
+  const httpRequestHandler = function httpRequestHandler(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    if (request) {
+      if (process.env.RESIN) {
+        const resinSupervisorUrl = `${process.env.RESIN_SUPERVISOR_ADDRESS}/v1/device?apikey=${process.env.RESIN_SUPERVISOR_API_KEY}`;
+        request.get(resinSupervisorUrl, (err, response, body) => {
+          console.log(body);
+          res.end(JSON.stringify(this.deviceStatus));
+        });
+      } else {
+        res.end(JSON.stringify(this.deviceStatus));
+      }
+    } else {
+      res.statusCode = 404;
+      res.end();
+    }
+  };
+
+  http.createServer(httpRequestHandler).listen(port);
 
   bonjour.publish({ name: 'BBQ-Pi', type: 'http', port: 80 });
 }
