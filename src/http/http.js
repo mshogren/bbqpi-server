@@ -1,5 +1,5 @@
 const http = require('http');
-const bonjour = require('bonjour');
+const bonjour = require('bonjour')();
 
 function HttpServer() {
   if (!(this instanceof HttpServer)) return new HttpServer();
