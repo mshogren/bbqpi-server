@@ -10,7 +10,7 @@ function HttpServer() {
 
   http.createServer((request, response) => {
     response.setHeader('Content-Type', 'application/json');
-    response.end(this.deviceStatus);
+    response.end(JSON.stringify(this.deviceStatus));
   }).listen(port);
 
   bonjour.publish({ name: 'BBQ-Pi', type: 'http', port: 80 });
