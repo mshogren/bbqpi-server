@@ -70,9 +70,9 @@ describe('When calculating temperatures for the TX-1000 series sensor', () => {
   [
     testCase(0, -459.67),
     testCase(1023, -459.67),
-    testCase(1, -76.69),
-    testCase(633, 212.20),
-    testCase(1022, 989.44),
+    testCase(1, -69.76),
+    testCase(633, 211.94),
+    testCase(1022, 1006.71),
   ].forEach(({ rawValue, expectedResult }) => {
     test(`if the reading raw value is ${rawValue} return ${expectedResult}`, () => {
       expectFunc({ rawValue }).toBeCloseTo(expectedResult, 2);
