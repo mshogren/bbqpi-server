@@ -1,4 +1,5 @@
 const bbq = require('./bbq')();
+const http = require('./http')();
 const pusher = require('./push')();
 const backend = require('./backend')(pusher.publicKey);
 

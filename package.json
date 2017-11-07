@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/mshogren/bbqpi-server#readme",
   "dependencies": {
+    "bonjour": "^3.5.0",
     "firebase": "^4.6.0",
     "jfs": "^0.2.6",
     "mcp-spi-adc": "^1.0.0",
