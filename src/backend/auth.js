@@ -85,25 +85,24 @@ function FirebaseAuth(firebase) {
   };
 
   const login = function login() {
-    config.get('refreshToken', (err, refreshToken) => {
-      console.log(err);
-      if (refreshToken) {
-        console.log('got refresh token');
-        const refreshRequestBody = {
-          form: {
-            client_id,
-            client_secret,
-            refresh_token: refreshToken,
-            grant_type: 'refresh_token',
-          },
-        };
+    const refreshToken = config.getSync('refreshToken');
+    console.log(refreshToken);
+    if (refreshToken) {
+      console.log('got refresh token');
+      const refreshRequestBody = {
+        form: {
+          client_id,
+          client_secret,
+          refresh_token: refreshToken,
+          grant_type: 'refresh_token',
+        },
+      };
 
-        request.post(tokenRequestUrl, refreshRequestBody, handleTokenResponse);
-      } else {
-        console.log('No refresh token');
-        request.post(deviceRequestUrl, deviceRequestBody, handleDeviceResponse);
-      }
-    });
+      request.post(tokenRequestUrl, refreshRequestBody, handleTokenResponse);
+    } else {
+      console.log('No refresh token');
+      request.post(deviceRequestUrl, deviceRequestBody, handleDeviceResponse);
+    }
   };
 
   firebase.auth().onAuthStateChanged((user) => {
