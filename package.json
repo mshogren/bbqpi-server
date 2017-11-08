@@ -26,7 +26,7 @@
   "dependencies": {
     "bonjour": "^3.5.0",
     "firebase": "^4.6.1",
-    "jfs": "^0.3.0",
+    "jfs": "^0.2.6",
     "mcp-spi-adc": "^1.0.0",
     "pi-gpioutil": "0.0.3",
     "request": "^2.83.0",
