@@ -30,7 +30,6 @@ function FirebaseAuth(firebase) {
   let handleDeviceResponse;
 
   const handleTokenResponse = function handleTokenResponse(err, response, body) {
-    console.log(body);
     const token = JSON.parse(body);
 
     if (token.id_token) {
@@ -86,9 +85,7 @@ function FirebaseAuth(firebase) {
 
   const login = function login() {
     config.get('refreshToken', (err, refreshToken) => {
-      console.log(err);
       if (refreshToken) {
-        console.log('got refresh token');
         const refreshRequestBody = {
           form: {
             client_id,
@@ -100,7 +97,6 @@ function FirebaseAuth(firebase) {
 
         request.post(tokenRequestUrl, refreshRequestBody, handleTokenResponse);
       } else {
-        console.log('No refresh token');
         request.post(deviceRequestUrl, deviceRequestBody, handleDeviceResponse);
       }
     });
