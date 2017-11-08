@@ -86,6 +86,7 @@ function FirebaseAuth(firebase) {
 
   const login = function login() {
     config.get('refreshToken', (err, refreshToken) => {
+      console.log(err);
       if (refreshToken) {
         console.log('got refresh token');
         const refreshRequestBody = {
