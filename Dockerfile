@@ -4,7 +4,8 @@ WORKDIR /app
 
 ENV NODE_ENV=production \
   NPM_CONFIG_PREFIX=/home/node/.npm-global \
-  PATH="${PATH}:/home/node/.npm-global/bin"
+  PATH="${PATH}:/home/node/.npm-global/bin" \
+  DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
 RUN wget -O - -q https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - \
   && echo "deb http://archive.raspberrypi.org/debian jessie main" | tee --append /etc/apt/sources.list \
