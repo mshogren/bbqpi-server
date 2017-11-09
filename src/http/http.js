@@ -6,7 +6,7 @@ const config = require('../config');
 function HttpServer() {
   if (!(this instanceof HttpServer)) return new HttpServer();
 
-  const port = 80;
+  const port = 8080;
 
   const self = this;
 
@@ -33,7 +33,7 @@ function HttpServer() {
 
   http.createServer(self.httpRequestHandler).listen(port);
 
-  bonjour.publish({ name: 'BBQ-Pi', type: 'http', port: 80 });
+  bonjour.publish({ name: 'BBQ-Pi', type: 'http', port });
 }
 
 HttpServer.prototype.setDeviceStatus = function setDeviceStatus(deviceStatus) {
