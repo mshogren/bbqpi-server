@@ -19,7 +19,7 @@ function HttpServer() {
         const resinSupervisorUrl = `${process.env.RESIN_SUPERVISOR_ADDRESS}/v1/device?apikey=${process.env.RESIN_SUPERVISOR_API_KEY}`;
         request.get(resinSupervisorUrl, (err, response, body) => {
           res.end(JSON.stringify(Object.assign(self.deviceStatus, {
-            resinSupervisorStatus: body,
+            resinSupervisorStatus: JSON.parse(body),
           })));
         });
       } else {
