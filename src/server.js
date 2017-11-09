@@ -14,7 +14,7 @@ if (process.env.RESIN) {
 
 const gracefulShutdown = function gracefulShutdown() {
   lockfile.unlock('/tmp/resin/resin-updates.lock', (err) => {
-    throw err;
+    if (err) throw err;
   });
   if (app) app.stop();
 };
