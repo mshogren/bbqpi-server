@@ -61,6 +61,8 @@ function FirebaseAuth(firebase) {
     console.log(`Verification Url: ${verification_url}, Code: ${user_code}`);
     /* eslint-enable camelcase */
 
+    self.emit('authorizationPending', body);
+
     const tokenRequestBody = {
       form: {
         client_id,

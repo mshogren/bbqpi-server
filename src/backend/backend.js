@@ -20,6 +20,10 @@ function FirebaseBackend(deviceKey) {
     self.db = self.db || db(firebase, deviceKey);
     self.emit('login', self.db);
   });
+
+  self.auth.on('authorizationPending', (status) => {
+    self.emit('authorizationPending', status);
+  });
 }
 
 inherits(FirebaseBackend, EventEmitter);

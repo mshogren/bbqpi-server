@@ -9,8 +9,8 @@ const addSingletonListener = function addSingletonListener(emitter, event, callb
   }
 };
 
-function Server() {
-  if (!(this instanceof Server)) return new Server();
+function App() {
+  if (!(this instanceof App)) return new App();
 
   const http = Http();
   const bbq = Bbq();
@@ -21,10 +21,12 @@ function Server() {
   this.backend = backend;
 
   backend.on('authorizationPending', (status) => {
-    http.setDeviceStatus(status);
+    http.setDeviceStatus({ auth: false, verification: status });
   });
 
   backend.on('login', (db) => {
+    http.setDeviceStatus({ auth: true });
+
     if (bbq.isFanControllerInitialized()) {
       db.getPreviousStates((states) => {
         bbq.initializeFanController(states);
@@ -60,9 +62,9 @@ function Server() {
   });
 }
 
-Server.prototype.stop = function stop() {
+App.prototype.stop = function stop() {
   this.bbq.stop();
   this.backend.stop();
 };
 
-module.exports = Server;
+module.exports = App;
