@@ -18,7 +18,7 @@ function FirebaseAuth(firebase) {
     client_secret,
     scope,
     tokenRequestUrl,
-  } = config.getSync('googleOAuthConfig');
+  } = config.store.getSync('googleOAuthConfig');
 
   const deviceRequestBody = {
     form: {
@@ -38,7 +38,7 @@ function FirebaseAuth(firebase) {
       firebase.auth().signInWithCredential(credential).catch(console.log);
 
       if (token.refresh_token) {
-        config.save('refreshToken', token.refresh_token, console.log);
+        config.store.save('refreshToken', token.refresh_token, console.log);
       }
     } else if (token.error) {
       console.log(token.error);
@@ -84,7 +84,7 @@ function FirebaseAuth(firebase) {
   };
 
   const login = function login() {
-    config.get('refreshToken', (err, refreshToken) => {
+    config.store.get('refreshToken', (err, refreshToken) => {
       if (refreshToken) {
         const refreshRequestBody = {
           form: {

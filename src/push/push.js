@@ -4,14 +4,14 @@ const config = require('../config');
 function WebPush() {
   if (!(this instanceof WebPush)) return new WebPush();
 
-  let pushConfig = config.getSync('pushConfig');
+  let pushConfig = config.store.getSync('pushConfig');
 
   if (!pushConfig || !pushConfig.publicKey) pushConfig = undefined;
 
   const { publicKey, privateKey } = pushConfig || webpush.generateVAPIDKeys();
 
   if (!pushConfig) {
-    config.save('pushConfig', { publicKey, privateKey }, console.log);
+    config.store.save('pushConfig', { publicKey, privateKey }, console.log);
   }
 
   this.publicKey = publicKey;

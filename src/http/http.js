@@ -1,6 +1,7 @@
 const http = require('http');
 const request = require('request');
 const bonjour = require('bonjour')();
+const config = require('../config');
 
 function HttpServer() {
   if (!(this instanceof HttpServer)) return new HttpServer();
@@ -14,7 +15,7 @@ function HttpServer() {
   self.httpRequestHandler = function httpRequestHandler(req, res) {
     if (req.url === '/') {
       res.setHeader('Content-Type', 'application/json');
-      if (process.env.RESIN) {
+      if (config.resin) {
         const resinSupervisorUrl = `${process.env.RESIN_SUPERVISOR_ADDRESS}/v1/device?apikey=${process.env.RESIN_SUPERVISOR_API_KEY}`;
         request.get(resinSupervisorUrl, (err, response, body) => {
           res.end(JSON.stringify(Object.assign(self.deviceStatus, {

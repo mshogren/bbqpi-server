@@ -2,8 +2,9 @@ const pusher = require('./push');
 const config = require('../config');
 const webpush = require('web-push');
 
-config.getSync = jest.fn();
-config.save = jest.fn();
+config.store = jest.fn();
+config.store.getSync = jest.fn();
+config.store.save = jest.fn();
 webpush.setVapidDetails = jest.fn();
 webpush.generateVAPIDKeys = jest.fn();
 webpush.sendNotification = jest.fn();
@@ -12,18 +13,18 @@ const url = 'https://dev.michael-shogren.com';
 
 describe('The pusher constructor', () => {
   beforeEach(() => {
-    config.getSync.mockReset();
+    config.store.getSync.mockReset();
   });
 
   test('uses VAPID keys from config if available', () => {
     const publicKey = 'publicKeyValueFromConfig';
     const privateKey = 'privateKeyValueFromConfig';
 
-    config.getSync.mockReturnValueOnce({ publicKey, privateKey });
+    config.store.getSync.mockReturnValueOnce({ publicKey, privateKey });
 
     expect(pusher()).toMatchObject({ publicKey });
-    expect(config.getSync).toHaveBeenCalledWith('pushConfig');
-    expect(config.save).not.toHaveBeenCalled();
+    expect(config.store.getSync).toHaveBeenCalledWith('pushConfig');
+    expect(config.store.save).not.toHaveBeenCalled();
     expect(webpush.setVapidDetails).toHaveBeenCalledWith(url, publicKey, privateKey);
   });
 
@@ -34,7 +35,7 @@ describe('The pusher constructor', () => {
     webpush.generateVAPIDKeys.mockReturnValueOnce({ publicKey, privateKey });
 
     expect(pusher()).toMatchObject({ publicKey });
-    expect(config.save).toHaveBeenCalledWith('pushConfig', { publicKey, privateKey }, console.log);
+    expect(config.store.save).toHaveBeenCalledWith('pushConfig', { publicKey, privateKey }, console.log);
     expect(webpush.setVapidDetails).toHaveBeenCalledWith(url, publicKey, privateKey);
   });
 });
@@ -46,7 +47,7 @@ describe('the pusher sends notifications', () => {
   const payload = 'payload';
 
   test('with no callback', () => {
-    config.getSync.mockReturnValueOnce({ publicKey, privateKey });
+    config.store.getSync.mockReturnValueOnce({ publicKey, privateKey });
 
     webpush.sendNotification.mockReturnValue(new Promise((resolve) => {
       resolve('returnValue');
@@ -58,7 +59,7 @@ describe('the pusher sends notifications', () => {
   });
 
   test('calls the callback on success', () => {
-    config.getSync.mockReturnValueOnce({ publicKey, privateKey });
+    config.store.getSync.mockReturnValueOnce({ publicKey, privateKey });
 
     webpush.sendNotification.mockReturnValue(new Promise((resolve) => {
       resolve('returnValue');
@@ -73,7 +74,7 @@ describe('the pusher sends notifications', () => {
   });
 
   test('does not call the callback on failure', () => {
-    config.getSync.mockReturnValueOnce({ publicKey, privateKey });
+    config.store.getSync.mockReturnValueOnce({ publicKey, privateKey });
 
     webpush.sendNotification.mockReturnValue(new Promise((resolve, reject) => {
       reject(new Error('mock webpush error'));

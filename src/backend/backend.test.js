@@ -20,18 +20,19 @@ const deviceKey = 'device key';
 beforeEach(() => {
   Db.mockClear();
 
-  config.getSync = jest.fn();
+  config.store = jest.fn();
+  config.store.getSync = jest.fn();
   firebase.initializeApp = jest.fn();
 });
 
 test('backend initializes firebase', () => {
   const firebaseConfig = {};
 
-  config.getSync.mockReturnValue(firebaseConfig);
+  config.store.getSync.mockReturnValue(firebaseConfig);
 
   const backend = Backend(deviceKey);
 
-  expect(config.getSync).toHaveBeenCalledWith('firebaseConfig');
+  expect(config.store.getSync).toHaveBeenCalledWith('firebaseConfig');
   expect(firebase.initializeApp).toHaveBeenCalledWith(firebaseConfig);
   expect(Auth).toHaveBeenCalledWith(firebase);
   expect(backend.auth).toBe(auth);

@@ -1,9 +1,10 @@
-const App = require('./app');
 const lockfile = require('lockfile');
+const App = require('./app');
+const config = require('./config');
 
 let app;
 
-if (process.env.RESIN) {
+if (config.resin) {
   lockfile.lock('/tmp/resin/resin-updates.lock', (err) => {
     if (err) console.log(err);
     app = App();

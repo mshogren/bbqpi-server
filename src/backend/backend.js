@@ -12,7 +12,7 @@ function FirebaseBackend(deviceKey) {
 
   const self = this;
 
-  firebase.initializeApp(config.getSync('firebaseConfig'));
+  firebase.initializeApp(config.store.getSync('firebaseConfig'));
 
   self.auth = auth(firebase);
 
