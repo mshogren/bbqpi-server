@@ -86,7 +86,8 @@ function FirebaseAuth(firebase) {
   };
 
   const login = function login() {
-    config.store.get('refreshToken', (err, { refreshToken }) => {
+    config.store.get('refreshToken', (err, data) => {
+      const refreshToken = data ? data.refreshToken : undefined;
       if (refreshToken) {
         const refreshRequestBody = {
           form: {
