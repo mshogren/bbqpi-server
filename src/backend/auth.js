@@ -38,7 +38,7 @@ function FirebaseAuth(firebase) {
       firebase.auth().signInWithCredential(credential).catch(console.log);
 
       if (token.refresh_token) {
-        config.store.save('refreshToken', token.refresh_token, console.log);
+        config.store.save('refreshToken', { refreshToken: token.refresh_token }, console.log);
       }
     } else if (token.error) {
       console.log(token.error);
@@ -86,7 +86,7 @@ function FirebaseAuth(firebase) {
   };
 
   const login = function login() {
-    config.store.get('refreshToken', (err, refreshToken) => {
+    config.store.get('refreshToken', (err, { refreshToken }) => {
       if (refreshToken) {
         const refreshRequestBody = {
           form: {
