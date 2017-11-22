@@ -9,6 +9,8 @@ webpush.setVapidDetails = jest.fn();
 webpush.generateVAPIDKeys = jest.fn();
 webpush.sendNotification = jest.fn();
 
+console.log = jest.fn();
+
 const url = 'https://dev.michael-shogren.com';
 
 describe('The pusher constructor', () => {

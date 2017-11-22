@@ -56,10 +56,21 @@ const configureGPIO = function configureGPIO(bcmPin, wiringPiPin) {
     .then(() => (setGPIOMode(wiringPiPin)));
 };
 
-module.exports.setPWMLevel = function setPWMLevel(fanLevel) {
+const setPWMLevel = function setPWMLevel(fanLevel) {
   const bcmPin = 19;
   const wiringPiPin = 24;
 
   return configureGPIO(bcmPin, wiringPiPin)
     .then(() => (writeGPIO(wiringPiPin, fanLevel)));
+};
+
+module.exports = {
+  writeGPIO,
+  setGPIOMode,
+  getGPIOExports,
+  exportGPIOPin,
+  exportGPIOPinIfRequired,
+  checkGPIOPin,
+  configureGPIO,
+  setPWMLevel,
 };

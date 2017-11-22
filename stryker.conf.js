@@ -3,11 +3,13 @@ module.exports = (config) => {
     files: [
       'src/**/*.js',
       '!src/server*.js',
+      '!src/app*.js',
       '!src/backend/**.js',
     ],
     mutate: [
       'src/**/*.js',
       '!src/server*.js',
+      '!src/app*.js',
       '!src/backend/**.js',
       '!src/**/*.test.js',
     ],

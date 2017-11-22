@@ -8,6 +8,8 @@ jest.mock('./alarmSensor');
 const TargetSensor = require('./targetSensor');
 const AlarmSensor = require('./alarmSensor');
 
+console.log = jest.fn();
+
 Sensor.prototype.start = jest.fn();
 
 test('BBQController initializes with one target sensor', () => {
