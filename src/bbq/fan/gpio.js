@@ -11,7 +11,7 @@ const writeGPIO = function writeGPIO(wiringPiPin, fanLevel) {
 
 const setGPIOMode = function setGPIOMode(wiringPiPin) {
   return new Promise((resolve, reject) => {
-    gpioutil.mode(24, 'pwm', (err) => {
+    gpioutil.mode(wiringPiPin, 'pwm', (err) => {
       if (err) reject(err);
       resolve(wiringPiPin);
     });
@@ -31,7 +31,7 @@ const exportGPIOPin = function exportGPIOPin(bcmPin) {
   return new Promise((resolve, reject) => {
     gpioutil.export(bcmPin, 'out', (err) => {
       if (err) reject(err);
-      resolve();
+      resolve(bcmPin);
     });
   });
 };

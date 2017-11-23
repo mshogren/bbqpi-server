@@ -30,6 +30,19 @@ console.log = jest.fn();
 
 require('./app')();
 
+test('when backend authorization is pending the status is published to the http service', () => {
+  http.setDeviceStatus = jest.fn();
+
+  backend.emit('authorizationPending', { status: 'status' });
+
+  expect(http.setDeviceStatus).toHaveBeenCalledWith({
+    auth: false,
+    verification: {
+      status: 'status',
+    },
+  });
+});
+
 test('when backend is authorized event listeners are setup', () => {
   http.setDeviceStatus = jest.fn();
   bbq.isFanControllerInitialized = jest.fn();
@@ -40,6 +53,7 @@ test('when backend is authorized event listeners are setup', () => {
 
   backend.emit('login', db);
 
+  expect(http.setDeviceStatus).toHaveBeenCalledWith({ auth: true });
   expect(bbq.isFanControllerInitialized).toHaveBeenCalled();
   expect(db.getPreviousStates).toHaveBeenCalled();
 
@@ -62,6 +76,7 @@ test('when backend is reauthorized event listeners are not duplicated', () => {
   backend.emit('login', db);
   backend.emit('login', db);
 
+  expect(http.setDeviceStatus).toHaveBeenCalledWith({ auth: true });
   expect(bbq.isFanControllerInitialized).toHaveBeenCalledTimes(2);
   expect(db.getPreviousStates).toHaveBeenCalledTimes(1);
 

@@ -7,8 +7,13 @@ module.exports = () => {
   const basePath = resin ? '/data' : 'config';
   const filePath = path.join(basePath, 'config.json');
 
-  return {
-    store: new Store(filePath, { type: 'single', pretty: true }),
-    resin,
-  };
+  let store;
+
+  try {
+    store = new Store(filePath, { type: 'single', pretty: true });
+  } catch (err) {
+    throw new Error('config store error');
+  }
+
+  return { store, resin };
 };

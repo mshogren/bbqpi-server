@@ -65,6 +65,16 @@ test('on reauthorization the backend provides the same singleton database interf
   expect(backend.emit).toHaveBeenCalledTimes(2);
 });
 
+test('on pending authorization the backend emits the status', () => {
+  const backend = Backend(deviceKey);
+
+  backend.emit = jest.fn();
+
+  backend.auth.emit('authorizationPending', { status: 'status' });
+
+  expect(backend.emit).toHaveBeenCalledWith('authorizationPending', { status: 'status' });
+});
+
 test('stop stops the authorization module', () => {
   const dbStop = jest.fn();
   auth.stop = jest.fn();

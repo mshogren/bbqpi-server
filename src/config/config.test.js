@@ -15,4 +15,10 @@ describe('The config object', () => {
       },
     });
   });
+
+  test('throws an access exception', () => {
+    resin.mockReturnValue({ resin: 'resin' });
+
+    expect(() => config()).toThrow('config store error');
+  });
 });
