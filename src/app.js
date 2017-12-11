@@ -3,7 +3,11 @@ const Bbq = require('./bbq');
 const Pusher = require('./push');
 const Backend = require('./backend');
 
-const addSingletonListener = function addSingletonListener(emitter, event, callback) {
+const addSingletonListener = function addSingletonListener(
+  emitter,
+  event,
+  callback
+) {
   if (emitter.listenerCount(event) === 0) {
     emitter.on(event, callback);
   }

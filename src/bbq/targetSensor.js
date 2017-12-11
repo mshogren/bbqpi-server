@@ -26,7 +26,7 @@ function TargetSensor() {
 
   self.fan = fan;
 
-  fan.on('fanChange', data => self.emitState(data));
+  fan.on('fanChange', (data) => self.emitState(data));
 
   sensor.on('temperatureChange', (data) => {
     self.emitState(data);
@@ -44,7 +44,9 @@ TargetSensor.prototype.isFanControllerInitialized = function isFanControllerInit
   return this.fan.isInitialized();
 };
 
-TargetSensor.prototype.initializeFanController = function initializeFanController(states) {
+TargetSensor.prototype.initializeFanController = function initializeFanController(
+  states
+) {
   this.fan.initialize(states);
 };
 

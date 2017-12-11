@@ -6,15 +6,11 @@ describe('When calculating temperatures for the TMP36 sensor', () => {
     expectedResult,
   });
 
-  const expectFunc = reading => (
-    expect(calculator.calculateTemperatureTMP36(reading))
-  );
+  const expectFunc = (reading) =>
+    expect(calculator.calculateTemperatureTMP36(reading));
 
-  const expectCall = reading => (
-    expect(() => (
-      calculator.calculateTemperatureTMP36(reading)
-    ))
-  );
+  const expectCall = (reading) =>
+    expect(() => calculator.calculateTemperatureTMP36(reading));
 
   [undefined, null].forEach((reading) => {
     test(`if the reading is ${reading} throw an error`, () => {
@@ -28,15 +24,13 @@ describe('When calculating temperatures for the TMP36 sensor', () => {
     });
   });
 
-  [
-    testCase(0, -58),
-    testCase(0.21, 66.74),
-    testCase(1, 536),
-  ].forEach(({ value, expectedResult }) => {
-    test(`if the reading value is ${value} return ${expectedResult}`, () => {
-      expectFunc({ value }).toBeCloseTo(expectedResult);
-    });
-  });
+  [testCase(0, -58), testCase(0.21, 66.74), testCase(1, 536)].forEach(
+    ({ value, expectedResult }) => {
+      test(`if the reading value is ${value} return ${expectedResult}`, () => {
+        expectFunc({ value }).toBeCloseTo(expectedResult);
+      });
+    }
+  );
 });
 
 describe('When calculating temperatures for the TX-1000 series sensor', () => {
@@ -45,15 +39,11 @@ describe('When calculating temperatures for the TX-1000 series sensor', () => {
     expectedResult,
   });
 
-  const expectFunc = reading => (
-    expect(calculator.calculateTemperatureTX1000(reading))
-  );
+  const expectFunc = (reading) =>
+    expect(calculator.calculateTemperatureTX1000(reading));
 
-  const expectCall = reading => (
-    expect(() => (
-      calculator.calculateTemperatureTX1000(reading)
-    ))
-  );
+  const expectCall = (reading) =>
+    expect(() => calculator.calculateTemperatureTX1000(reading));
 
   [undefined, null].forEach((reading) => {
     test(`if the reading is ${reading} throw an error`, () => {

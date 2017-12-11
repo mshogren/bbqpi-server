@@ -18,9 +18,10 @@ function Sensor(channel, name) {
   const self = this;
 
   self.calculateTemperature = function calculateTemperature(reading) {
-    const temperature = (self.channel === 0)
-      ? calculator.calculateTemperatureTMP36(reading)
-      : calculator.calculateTemperatureTX1000(reading);
+    const temperature =
+      self.channel === 0
+        ? calculator.calculateTemperatureTMP36(reading)
+        : calculator.calculateTemperatureTX1000(reading);
 
     return Math.round(temperature);
   };
@@ -52,7 +53,11 @@ function Sensor(channel, name) {
 inherits(Sensor, EventEmitter);
 
 Sensor.prototype.start = function start() {
-  this.tempSensor = mcpadc.open(this.channel, { speedHz: 20000 }, this.onChannelOpen);
+  this.tempSensor = mcpadc.open(
+    this.channel,
+    { speedHz: 20000 },
+    this.onChannelOpen
+  );
 };
 
 Sensor.prototype.getChannel = function getChannel() {
@@ -72,4 +77,3 @@ Sensor.prototype.stop = function stop() {
 };
 
 module.exports = Sensor;
-

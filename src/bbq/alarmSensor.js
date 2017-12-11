@@ -9,12 +9,7 @@ function AlarmSensor(sensorData) {
 
   EventEmitter.call(this);
 
-  const {
-    channel,
-    name,
-    alarmEnabled,
-    alarmTemperature,
-  } = sensorData;
+  const { channel, name, alarmEnabled, alarmTemperature } = sensorData;
 
   const self = this;
 

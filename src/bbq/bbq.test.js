@@ -34,14 +34,16 @@ test('BBQController reacts to temperature changes on target sensor', () => {
 
   bbq.targetSensor.emit('temperatureChange', { state: 'state' });
 
-  expect(bbq.emit).toHaveBeenCalledWith('temperatureChange', { state: 'state' });
+  expect(bbq.emit).toHaveBeenCalledWith('temperatureChange', {
+    state: 'state',
+  });
 });
 
 [true, false].forEach((isInitialized) => {
   test(`isFanControllerInitialized when fan controller initialized is ${isInitialized}`, () => {
     const bbq = BBQController();
 
-    bbq.targetSensor.isFanControllerInitialized = jest.fn(() => (isInitialized));
+    bbq.targetSensor.isFanControllerInitialized = jest.fn(() => isInitialized);
 
     const actual = bbq.isFanControllerInitialized();
 
@@ -131,7 +133,10 @@ test('updateSensor updates the sensor with the given channel', () => {
 
   bbq.updateSensor({ channel: 1, otherSensorData: true });
 
-  expect(bbq.sensors[2].updateSensor).toHaveBeenCalledWith({ channel: 1, otherSensorData: true });
+  expect(bbq.sensors[2].updateSensor).toHaveBeenCalledWith({
+    channel: 1,
+    otherSensorData: true,
+  });
 });
 
 test('removeSensor stops the sensor with the given channel and removes it from the collection', () => {
@@ -151,7 +156,7 @@ test('removeSensor stops the sensor with the given channel and removes it from t
   bbq.removeSensor({ channel: 1, otherSensorData: true });
 
   expect(stopMock).toHaveBeenCalled();
-  expect(bbq.sensors.map(sensor => sensor.getChannel())).toEqual([0, 2, 3]);
+  expect(bbq.sensors.map((sensor) => sensor.getChannel())).toEqual([0, 2, 3]);
 });
 
 test('stop stops all sensors in the collection', () => {

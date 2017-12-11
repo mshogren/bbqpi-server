@@ -2,7 +2,10 @@ const { inherits } = require('util');
 const { EventEmitter } = require('events');
 const gpio = require('./gpio');
 
-const calculateFanLevel = function calculateFanLevel(targetTemperature, currentTemperature) {
+const calculateFanLevel = function calculateFanLevel(
+  targetTemperature,
+  currentTemperature
+) {
   const error = targetTemperature - currentTemperature;
 
   if (error < 0) return 0;
@@ -51,8 +54,7 @@ FanController.prototype.isInitialized = function isInitialized() {
   return false;
 };
 
-FanController.prototype.initialize = function initialize() {
-};
+FanController.prototype.initialize = function initialize() {};
 
 FanController.prototype.setTarget = function setTarget(target) {
   console.log('Target: ', target);

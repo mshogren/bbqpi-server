@@ -75,11 +75,10 @@ test('getChannel gets the channel', () => {
   expect(targetSensor.getChannel()).toEqual(0);
 });
 
-
 [true, false].forEach((isInitialized) => {
   test(`isFanControllerInitialized when fan controller initialized is ${isInitialized}`, () => {
     const targetSensor = TargetSensor();
-    targetSensor.fan.isInitialized = jest.fn(() => (isInitialized));
+    targetSensor.fan.isInitialized = jest.fn(() => isInitialized);
 
     const actual = targetSensor.isFanControllerInitialized();
 

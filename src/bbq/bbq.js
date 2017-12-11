@@ -25,7 +25,7 @@ function BBQController() {
   };
 
   self.getSensorIndexByChannel = function getSensorIndexByChannel(channel) {
-    return self.sensors.findIndex(sensor => (sensor.getChannel() === channel));
+    return self.sensors.findIndex((sensor) => sensor.getChannel() === channel);
   };
 
   const targetSensor = TargetSensor();
@@ -45,7 +45,9 @@ BBQController.prototype.isFanControllerInitialized = function isFanControllerIni
   return this.targetSensor.isFanControllerInitialized();
 };
 
-BBQController.prototype.initializeFanController = function initializeFanController(states) {
+BBQController.prototype.initializeFanController = function initializeFanController(
+  states
+) {
   this.targetSensor.initializeFanController(states);
 };
 

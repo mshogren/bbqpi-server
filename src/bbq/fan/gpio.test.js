@@ -6,7 +6,9 @@ test('writeGPIO returns the value written', () => {
 
   return gpio.writeGPIO(2, 512).then((actual) => {
     expect(gpioutil.pwm).toHaveBeenCalled();
-    expect(gpioutil.pwm.mock.calls[0]).toEqual(expect.arrayContaining([2, 512]));
+    expect(gpioutil.pwm.mock.calls[0]).toEqual(
+      expect.arrayContaining([2, 512])
+    );
     expect(actual).toEqual(512);
   });
 });
@@ -25,7 +27,9 @@ test('setGPIOMode returns the pin number', () => {
 
   return gpio.setGPIOMode(2).then((actual) => {
     expect(gpioutil.mode).toHaveBeenCalled();
-    expect(gpioutil.mode.mock.calls[0]).toEqual(expect.arrayContaining([2, 'pwm']));
+    expect(gpioutil.mode.mock.calls[0]).toEqual(
+      expect.arrayContaining([2, 'pwm'])
+    );
     expect(actual).toEqual(2);
   });
 });
@@ -40,7 +44,7 @@ test('setGPIOMode throws an error', () => {
 });
 
 test('getGPIOExports returns the exported pins', () => {
-  gpioutil.exports = jest.fn(cb => cb(null, null, null, { pin: 23 }));
+  gpioutil.exports = jest.fn((cb) => cb(null, null, null, { pin: 23 }));
 
   return gpio.getGPIOExports().then((actual) => {
     expect(gpioutil.exports).toHaveBeenCalled();
@@ -49,7 +53,7 @@ test('getGPIOExports returns the exported pins', () => {
 });
 
 test('getGPIOExports throws an error', () => {
-  gpioutil.exports = jest.fn(cb => cb('getGPIOExports error'));
+  gpioutil.exports = jest.fn((cb) => cb('getGPIOExports error'));
 
   return gpio.getGPIOExports().catch((err) => {
     expect(gpioutil.exports).toHaveBeenCalled();
@@ -62,7 +66,9 @@ test('exportGPIOPin exports the pin', () => {
 
   return gpio.exportGPIOPin(2).then((actual) => {
     expect(gpioutil.export).toHaveBeenCalled();
-    expect(gpioutil.export.mock.calls[0]).toEqual(expect.arrayContaining([2, 'out']));
+    expect(gpioutil.export.mock.calls[0]).toEqual(
+      expect.arrayContaining([2, 'out'])
+    );
     expect(actual).toEqual(2);
   });
 });

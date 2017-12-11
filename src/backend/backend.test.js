@@ -72,7 +72,9 @@ test('on pending authorization the backend emits the status', () => {
 
   backend.auth.emit('authorizationPending', { status: 'status' });
 
-  expect(backend.emit).toHaveBeenCalledWith('authorizationPending', { status: 'status' });
+  expect(backend.emit).toHaveBeenCalledWith('authorizationPending', {
+    status: 'status',
+  });
 });
 
 test('stop stops the authorization module', () => {

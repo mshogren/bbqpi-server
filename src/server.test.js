@@ -41,4 +41,3 @@ beforeEach(() => {
     expect(backend.stop).toHaveBeenCalled();
   });
 });
-

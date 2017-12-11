@@ -1,3 +1,1 @@
-module.exports = () => (
-  process.env.RESIN ? {} : undefined
-);
+module.exports = () => (process.env.RESIN ? {} : undefined);

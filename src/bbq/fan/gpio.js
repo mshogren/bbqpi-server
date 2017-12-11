@@ -36,9 +36,14 @@ const exportGPIOPin = function exportGPIOPin(bcmPin) {
   });
 };
 
-const exportGPIOPinIfRequired = function exportGPIOPinIfRequired(exports, bcmPin) {
+const exportGPIOPinIfRequired = function exportGPIOPinIfRequired(
+  exports,
+  bcmPin
+) {
   return new Promise((resolve) => {
-    if (exports.every(e => e.pin !== String(bcmPin) || e.direction !== 'out')) {
+    if (
+      exports.every((e) => e.pin !== String(bcmPin) || e.direction !== 'out')
+    ) {
       exportGPIOPin(bcmPin).then(resolve);
     } else {
       resolve();
@@ -47,21 +52,22 @@ const exportGPIOPinIfRequired = function exportGPIOPinIfRequired(exports, bcmPin
 };
 
 const checkGPIOPin = function checkGPIOPin(bcmPin) {
-  return getGPIOExports()
-    .then(exports => (exportGPIOPinIfRequired(exports, bcmPin)));
+  return getGPIOExports().then((exports) =>
+    exportGPIOPinIfRequired(exports, bcmPin)
+  );
 };
 
 const configureGPIO = function configureGPIO(bcmPin, wiringPiPin) {
-  return checkGPIOPin(bcmPin)
-    .then(() => (setGPIOMode(wiringPiPin)));
+  return checkGPIOPin(bcmPin).then(() => setGPIOMode(wiringPiPin));
 };
 
 const setPWMLevel = function setPWMLevel(fanLevel) {
   const bcmPin = 19;
   const wiringPiPin = 24;
 
-  return configureGPIO(bcmPin, wiringPiPin)
-    .then(() => (writeGPIO(wiringPiPin, fanLevel)));
+  return configureGPIO(bcmPin, wiringPiPin).then(() =>
+    writeGPIO(wiringPiPin, fanLevel)
+  );
 };
 
 module.exports = {

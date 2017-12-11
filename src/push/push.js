@@ -20,8 +20,13 @@ function WebPush() {
   webpush.setVapidDetails(url, publicKey, privateKey);
 }
 
-WebPush.prototype.sendNotification = function sendNotification(subscription, payload, callback) {
-  return webpush.sendNotification(subscription, payload)
+WebPush.prototype.sendNotification = function sendNotification(
+  subscription,
+  payload,
+  callback
+) {
+  return webpush
+    .sendNotification(subscription, payload)
     .then(callback)
     .catch(console.log);
 };

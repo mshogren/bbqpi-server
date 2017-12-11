@@ -48,7 +48,11 @@ test('start attempts to open the channel', () => {
 
   sensor.start();
 
-  expect(mcpadc.open).toHaveBeenCalledWith(1, { speedHz: 20000 }, sensor.onChannelOpen);
+  expect(mcpadc.open).toHaveBeenCalledWith(
+    1,
+    { speedHz: 20000 },
+    sensor.onChannelOpen
+  );
 });
 
 describe('when opening a channel', () => {
@@ -177,7 +181,6 @@ describe('calculateTemperature', () => {
     expect(calculator.calculateTemperatureTX1000).toHaveBeenCalledWith(reading);
   });
 });
-
 
 test('getChannel gets the channel', () => {
   const sensor = Sensor(2);

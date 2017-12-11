@@ -59,11 +59,20 @@ test('when backend is authorized event listeners are setup', () => {
 
   const bbqEvents = ['temperatureChange', 'alarm'];
   expect(bbq.eventNames()).toEqual(bbqEvents);
-  bbqEvents.forEach(eventName => expect(bbq.listenerCount(eventName)).toEqual(1));
+  bbqEvents.forEach((eventName) =>
+    expect(bbq.listenerCount(eventName)).toEqual(1)
+  );
 
-  const dbEvents = ['setTargetTemperature', 'addSensor', 'updateSensor', 'removeSensor'];
+  const dbEvents = [
+    'setTargetTemperature',
+    'addSensor',
+    'updateSensor',
+    'removeSensor',
+  ];
   expect(db.eventNames()).toEqual(dbEvents);
-  dbEvents.forEach(eventName => expect(db.listenerCount(eventName)).toEqual(1));
+  dbEvents.forEach((eventName) =>
+    expect(db.listenerCount(eventName)).toEqual(1)
+  );
 });
 
 test('when backend is reauthorized event listeners are not duplicated', () => {
@@ -82,11 +91,20 @@ test('when backend is reauthorized event listeners are not duplicated', () => {
 
   const bbqEvents = ['temperatureChange', 'alarm'];
   expect(bbq.eventNames()).toEqual(bbqEvents);
-  bbqEvents.forEach(eventName => expect(bbq.listenerCount(eventName)).toEqual(1));
+  bbqEvents.forEach((eventName) =>
+    expect(bbq.listenerCount(eventName)).toEqual(1)
+  );
 
-  const dbEvents = ['setTargetTemperature', 'addSensor', 'updateSensor', 'removeSensor'];
+  const dbEvents = [
+    'setTargetTemperature',
+    'addSensor',
+    'updateSensor',
+    'removeSensor',
+  ];
   expect(db.eventNames()).toEqual(dbEvents);
-  dbEvents.forEach(eventName => expect(db.listenerCount(eventName)).toEqual(1));
+  dbEvents.forEach((eventName) =>
+    expect(db.listenerCount(eventName)).toEqual(1)
+  );
 });
 
 describe('when backend is authorized and listeners setup', () => {

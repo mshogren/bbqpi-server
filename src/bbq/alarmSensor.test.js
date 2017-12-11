@@ -53,7 +53,6 @@ describe('checkAlarm', () => {
     expect(alarmSensor.emit).not.toHaveBeenCalled();
   });
 
-
   test('when current temperature is not defined', () => {
     sensorData.alarmEnabled = true;
     const alarmSensor = AlarmSensor(sensorData);

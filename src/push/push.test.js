@@ -27,7 +27,11 @@ describe('The pusher constructor', () => {
     expect(pusher()).toMatchObject({ publicKey });
     expect(config.store.getSync).toHaveBeenCalledWith('pushConfig');
     expect(config.store.save).not.toHaveBeenCalled();
-    expect(webpush.setVapidDetails).toHaveBeenCalledWith(url, publicKey, privateKey);
+    expect(webpush.setVapidDetails).toHaveBeenCalledWith(
+      url,
+      publicKey,
+      privateKey
+    );
   });
 
   test('generates VAPID keys if not in config', () => {
@@ -37,8 +41,16 @@ describe('The pusher constructor', () => {
     webpush.generateVAPIDKeys.mockReturnValueOnce({ publicKey, privateKey });
 
     expect(pusher()).toMatchObject({ publicKey });
-    expect(config.store.save).toHaveBeenCalledWith('pushConfig', { publicKey, privateKey }, console.log);
-    expect(webpush.setVapidDetails).toHaveBeenCalledWith(url, publicKey, privateKey);
+    expect(config.store.save).toHaveBeenCalledWith(
+      'pushConfig',
+      { publicKey, privateKey },
+      console.log
+    );
+    expect(webpush.setVapidDetails).toHaveBeenCalledWith(
+      url,
+      publicKey,
+      privateKey
+    );
   });
 });
 
@@ -51,44 +63,62 @@ describe('the pusher sends notifications', () => {
   test('with no callback', () => {
     config.store.getSync.mockReturnValueOnce({ publicKey, privateKey });
 
-    webpush.sendNotification.mockReturnValue(new Promise((resolve) => {
-      resolve('returnValue');
-    }));
+    webpush.sendNotification.mockReturnValue(
+      new Promise((resolve) => {
+        resolve('returnValue');
+      })
+    );
 
     pusher().sendNotification(subscription, payload);
 
-    expect(webpush.sendNotification).toHaveBeenCalledWith(subscription, payload);
+    expect(webpush.sendNotification).toHaveBeenCalledWith(
+      subscription,
+      payload
+    );
   });
 
   test('calls the callback on success', () => {
     config.store.getSync.mockReturnValueOnce({ publicKey, privateKey });
 
-    webpush.sendNotification.mockReturnValue(new Promise((resolve) => {
-      resolve('returnValue');
-    }));
+    webpush.sendNotification.mockReturnValue(
+      new Promise((resolve) => {
+        resolve('returnValue');
+      })
+    );
 
     const callback = jest.fn();
 
-    return pusher().sendNotification(subscription, payload, callback).then(() => {
-      expect(callback).toHaveBeenCalled();
-      expect(webpush.sendNotification).toHaveBeenCalledWith(subscription, payload);
-    });
+    return pusher()
+      .sendNotification(subscription, payload, callback)
+      .then(() => {
+        expect(callback).toHaveBeenCalled();
+        expect(webpush.sendNotification).toHaveBeenCalledWith(
+          subscription,
+          payload
+        );
+      });
   });
 
   test('does not call the callback on failure', () => {
     config.store.getSync.mockReturnValueOnce({ publicKey, privateKey });
 
-    webpush.sendNotification.mockReturnValue(new Promise((resolve, reject) => {
-      reject(new Error('mock webpush error'));
-    }));
+    webpush.sendNotification.mockReturnValue(
+      new Promise((resolve, reject) => {
+        reject(new Error('mock webpush error'));
+      })
+    );
 
     const callback = jest.fn();
 
-    return pusher().sendNotification(subscription, payload, callback)
+    return pusher()
+      .sendNotification(subscription, payload, callback)
       .then(() => {})
       .catch(() => {
         expect(callback).not.toHaveBeenCalled();
-        expect(webpush.sendNotification).toHaveBeenCalledWith(subscription, payload);
+        expect(webpush.sendNotification).toHaveBeenCalledWith(
+          subscription,
+          payload
+        );
       });
   });
 });
