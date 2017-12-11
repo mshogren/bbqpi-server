@@ -8,7 +8,8 @@
     "posttest": "eslint src && stryker run stryker.conf.js",
     "stryker": "stryker run stryker.conf.js",
     "jest": "jest --watch",
-    "commitmsg": "commitlint -e $GIT_PARAMS"
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,7 @@
   },
   "dependencies": {
     "bonjour": "^3.5.0",
-    "firebase": "^4.7.0",
+    "firebase": "^4.8.0",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.3",
     "mcp-spi-adc": "^1.0.0",
@@ -34,16 +35,19 @@
     "web-push": "^3.2.5"
   },
   "devDependencies": {
-    "@commitlint/cli": "^5.2.3",
+    "@commitlint/cli": "^5.2.5",
     "@commitlint/config-conventional": "^5.2.3",
     "codecov": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^4.12.1",
+    "eslint": "^4.13.0",
     "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
     "husky": "^0.14.3",
     "jest": "^21.2.1",
     "jest-cli": "^21.2.1",
+    "lint-staged": "^6.0.0",
+    "prettier": "1.9.1",
     "stryker": "^0.15.5",
     "stryker-api": "^0.11.0",
     "stryker-jest-runner": "^0.3.0"
@@ -55,6 +59,12 @@
     ],
     "testPathIgnorePatterns": [
       "/.stryker-tmp/"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --write",
+      "git add"
     ]
   },
   "config": {

@@ -12,6 +12,7 @@ function FirebaseAuth(firebase) {
 
   self.requestInterval = null;
 
+  /* eslint-disable camelcase */
   const {
     deviceRequestUrl,
     client_id,
@@ -19,6 +20,7 @@ function FirebaseAuth(firebase) {
     scope,
     tokenRequestUrl,
   } = config.store.getSync('googleOAuthConfig');
+  /* eslint-enable camelcase */
 
   const deviceRequestBody = {
     form: {
@@ -29,16 +31,29 @@ function FirebaseAuth(firebase) {
 
   let handleDeviceResponse;
 
-  const handleTokenResponse = function handleTokenResponse(err, response, body) {
+  const handleTokenResponse = function handleTokenResponse(
+    err,
+    response,
+    body
+  ) {
     const token = JSON.parse(body);
 
     if (token.id_token) {
       clearInterval(self.requestInterval);
-      const credential = firebase.auth.GoogleAuthProvider.credential(token.id_token);
-      firebase.auth().signInWithCredential(credential).catch(console.log);
+      const credential = firebase.auth.GoogleAuthProvider.credential(
+        token.id_token
+      );
+      firebase
+        .auth()
+        .signInWithCredential(credential)
+        .catch(console.log);
 
       if (token.refresh_token) {
-        config.store.save('refreshToken', { refreshToken: token.refresh_token }, console.log);
+        config.store.save(
+          'refreshToken',
+          { refreshToken: token.refresh_token },
+          console.log
+        );
       }
     } else if (token.error) {
       console.log(token.error);
@@ -48,7 +63,12 @@ function FirebaseAuth(firebase) {
     }
   };
 
-  handleDeviceResponse = function handleDeviceResponseFunc(err, response, body) {
+  handleDeviceResponse = function handleDeviceResponseFunc(
+    err,
+    response,
+    body
+  ) {
+    /* eslint-disable camelcase */
     const {
       verification_url,
       expires_in,
@@ -57,7 +77,6 @@ function FirebaseAuth(firebase) {
       user_code,
     } = JSON.parse(body);
 
-    /* eslint-disable camelcase */
     console.log(`Verification Url: ${verification_url}, Code: ${user_code}`);
     /* eslint-enable camelcase */
 

@@ -6,7 +6,10 @@ module.exports = {
     "es6": true,
     "jest": true
   },
-  "extends": "airbnb-base",
+  "extends": [
+    "airbnb-base",
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
