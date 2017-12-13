@@ -1,3 +1,13 @@
+const { EventEmitter } = require('events');
+
+jest.mock('./fan');
+
+const FanController = require('./fan');
+
+const fan = new EventEmitter();
+fan.addState = jest.fn();
+FanController.mockReturnValue(fan);
+
 const TargetSensor = require('./targetSensor');
 const Sensor = require('./sensor');
 

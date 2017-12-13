@@ -27,7 +27,7 @@ test('BBQController initializes with one target sensor', () => {
 test('BBQController reacts to temperature changes on target sensor', () => {
   const targetSensor = new EventEmitter();
 
-  TargetSensor.mockReturnValue(targetSensor);
+  TargetSensor.mockReturnValueOnce(targetSensor);
 
   const bbq = BBQController();
   bbq.emit = jest.fn();
