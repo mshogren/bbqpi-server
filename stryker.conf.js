@@ -13,6 +13,7 @@ module.exports = (config) => {
       '!src/backend/**.js',
       '!src/**/*.test.js',
     ],
+    mutator: 'javascript',
     testRunner: 'jest',
     coverageAnalysis: 'off',
     maxConcurrentTestRunners: 2,
