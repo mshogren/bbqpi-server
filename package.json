@@ -1,6 +1,6 @@
 {
   "name": "bbqpi-server",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "A node and firebase based service to install on a Raspberry Pi for controlling a charcoal bbq fan blower and temperature sensors.",
   "main": "src/server.js",
   "scripts": {
@@ -9,11 +9,12 @@
     "stryker": "stryker run stryker.conf.js",
     "jest": "jest --watch",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mshogren/bbqpi-server.git"
+    "url": "https://github.com/mshogren/bbqpi-server.git"
   },
   "author": "",
   "license": "MIT",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "^5.2.6",
     "@commitlint/config-conventional": "^5.2.3",
+    "@semantic-release/git": "^2.0.1",
     "codecov": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^4.13.1",
@@ -48,6 +50,7 @@
     "jest-cli": "^22.0.4",
     "lint-staged": "^6.0.0",
     "prettier": "^1.9.2",
+    "semantic-release": "^11.0.2",
     "stryker": "^0.17.0",
     "stryker-api": "^0.12.0",
     "stryker-javascript-mutator": "^0.3.1",
@@ -67,6 +70,10 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "release": {
+    "getLastRelease": "@semantic-release/git",
+    "publish": "@semantic-release/github"
   },
   "config": {
     "commitizen": {
