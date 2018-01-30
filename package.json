@@ -38,7 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "^6.0.2",
     "@commitlint/config-conventional": "^6.0.2",
-    "@semantic-release/git": "^2.0.3",
+    "@semantic-release/git": "^3.0.0",
     "codecov": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^4.16.0",
@@ -50,7 +50,7 @@
     "jest-cli": "^22.1.4",
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2",
-    "semantic-release": "^12.2.5",
+    "semantic-release": "^13.1.0",
     "stryker": "^0.18.1",
     "stryker-api": "^0.12.0",
     "stryker-javascript-mutator": "^0.3.3",
@@ -72,8 +72,10 @@
     ]
   },
   "release": {
-    "getLastRelease": "@semantic-release/git",
-    "publish": "@semantic-release/github"
+    "publish": [
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
   },
   "config": {
     "commitizen": {
