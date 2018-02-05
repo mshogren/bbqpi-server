@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "bonjour": "^3.5.0",
-    "firebase": "^4.9.0",
+    "firebase": "^4.9.1",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.3",
     "mcp-spi-adc": "^1.0.0",
@@ -36,12 +36,12 @@
     "web-push": "^3.2.5"
   },
   "devDependencies": {
-    "@commitlint/cli": "^6.0.2",
-    "@commitlint/config-conventional": "^6.0.2",
+    "@commitlint/cli": "^6.1.0",
+    "@commitlint/config-conventional": "^6.1.0",
     "@semantic-release/git": "^3.0.0",
     "codecov": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^4.16.0",
+    "eslint": "^4.17.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
@@ -51,7 +51,7 @@
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2",
     "semantic-release": "^13.1.0",
-    "stryker": "^0.18.1",
+    "stryker": "^0.18.2",
     "stryker-api": "^0.12.0",
     "stryker-javascript-mutator": "^0.3.3",
     "stryker-jest-runner": "^0.3.0"
