@@ -15,6 +15,11 @@ module.exports = (config) => {
     ],
     mutator: 'javascript',
     testRunner: 'jest',
+    jest: {
+      config: {
+        testPathIgnorePatterns: []
+      }
+    },
     coverageAnalysis: 'off',
     maxConcurrentTestRunners: 2,
     timeoutMs: 10000,
