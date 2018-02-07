@@ -46,15 +46,15 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
     "husky": "^0.14.3",
-    "jest": "^22.1.4",
-    "jest-cli": "^22.1.4",
+    "jest": "^22.2.1",
+    "jest-cli": "^22.2.1",
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2",
     "semantic-release": "^13.1.0",
-    "stryker": "^0.18.2",
-    "stryker-api": "^0.12.0",
-    "stryker-javascript-mutator": "^0.3.3",
-    "stryker-jest-runner": "^0.4.0"
+    "stryker": "^0.19.1",
+    "stryker-api": "^0.13.0",
+    "stryker-javascript-mutator": "^0.3.5",
+    "stryker-jest-runner": "^0.4.2"
   },
   "jest": {
     "collectCoverageFrom": [
