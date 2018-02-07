@@ -20,6 +20,7 @@ module.exports = (config) => {
         testPathIgnorePatterns: []
       }
     },
+    reporter: ['clear-text', 'progress', 'dashboard'],
     coverageAnalysis: 'off',
     maxConcurrentTestRunners: 2,
     timeoutMs: 10000,
