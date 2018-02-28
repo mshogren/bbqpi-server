@@ -5,6 +5,7 @@ module.exports = (config) => {
       '!src/server*.js',
       '!src/app*.js',
       '!src/backend/**.js',
+      '!src/bbq/alarmSensor.test.js',
     ],
     mutate: [
       'src/**/*.js',
