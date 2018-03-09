@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "bonjour": "^3.5.0",
-    "firebase": "^4.10.1",
+    "firebase": "^4.11.0",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.3",
     "mcp-spi-adc": "^2.0.0",
@@ -50,7 +50,7 @@
     "jest-cli": "^22.4.2",
     "lint-staged": "^7.0.0",
     "prettier": "^1.11.1",
-    "semantic-release": "^15.0.1",
+    "semantic-release": "^15.0.2",
     "stryker": "^0.19.3",
     "stryker-api": "^0.13.0",
     "stryker-javascript-mutator": "^0.4.0",
