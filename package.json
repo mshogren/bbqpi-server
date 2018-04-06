@@ -27,12 +27,12 @@
   },
   "dependencies": {
     "bonjour": "^3.5.0",
-    "firebase": "^4.11.0",
+    "firebase": "^4.12.1",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.3",
     "mcp-spi-adc": "^2.0.0",
     "pi-gpioutil": "0.0.3",
-    "request": "^2.83.0",
+    "request": "^2.85.0",
     "web-push": "^3.3.0"
   },
   "devDependencies": {
@@ -41,20 +41,20 @@
     "@semantic-release/git": "^4.0.1",
     "codecov": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^4.18.2",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-import": "^2.10.0",
     "husky": "^0.14.3",
-    "jest": "^22.4.2",
-    "jest-cli": "^22.4.2",
-    "lint-staged": "^7.0.0",
+    "jest": "^22.4.3",
+    "jest-cli": "^22.4.3",
+    "lint-staged": "^7.0.4",
     "prettier": "^1.11.1",
-    "semantic-release": "^15.0.2",
-    "stryker": "^0.19.3",
-    "stryker-api": "^0.13.0",
-    "stryker-javascript-mutator": "^0.4.0",
-    "stryker-jest-runner": "^0.5.1"
+    "semantic-release": "^15.1.5",
+    "stryker": "^0.21.0",
+    "stryker-api": "^0.15.0",
+    "stryker-javascript-mutator": "^0.5.0",
+    "stryker-jest-runner": "^0.6.0"
   },
   "jest": {
     "collectCoverageFrom": [
