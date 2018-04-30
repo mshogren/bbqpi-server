@@ -50,10 +50,10 @@
     "jest-cli": "^22.4.3",
     "lint-staged": "^7.0.5",
     "prettier": "^1.12.1",
-    "semantic-release": "^15.1.7",
-    "stryker": "^0.22.4",
-    "stryker-api": "^0.16.1",
-    "stryker-javascript-mutator": "^0.6.3",
+    "semantic-release": "^15.1.8",
+    "stryker": "^0.23.0",
+    "stryker-api": "^0.17.0",
+    "stryker-javascript-mutator": "^0.7.0",
     "stryker-jest-runner": "^0.6.0"
   },
   "jest": {
