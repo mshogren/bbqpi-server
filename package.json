@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "bonjour": "^3.5.0",
-    "firebase": "^5.0.1",
+    "firebase": "^4.13.1",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.4",
     "mcp-spi-adc": "^2.0.2",
