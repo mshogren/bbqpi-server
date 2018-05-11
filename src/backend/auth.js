@@ -45,7 +45,7 @@ function FirebaseAuth(firebase) {
       );
       firebase
         .auth()
-        .signInWithCredential(credential)
+        .signInAndRetrieveDataWithCredential(credential)
         .catch(console.log);
 
       if (token.refresh_token) {
