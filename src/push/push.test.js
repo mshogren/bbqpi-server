@@ -1,6 +1,6 @@
+const webpush = require('web-push');
 const pusher = require('./push');
 const config = require('../config');
-const webpush = require('web-push');
 
 config.store = jest.fn();
 config.store.getSync = jest.fn();

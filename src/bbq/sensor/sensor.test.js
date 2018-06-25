@@ -1,6 +1,6 @@
+const mcpadc = require('mcp-spi-adc');
 const Sensor = require('./sensor');
 const calculator = require('./temperature');
-const mcpadc = require('mcp-spi-adc');
 
 describe('Sensor constructor', () => {
   test('with a name', () => {

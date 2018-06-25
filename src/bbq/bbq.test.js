@@ -1,6 +1,6 @@
+const { EventEmitter } = require('events');
 const BBQController = require('./bbq');
 const Sensor = require('./sensor');
-const { EventEmitter } = require('events');
 
 jest.mock('./targetSensor');
 jest.mock('./alarmSensor');

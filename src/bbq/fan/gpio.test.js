@@ -1,5 +1,5 @@
-const gpio = require('./gpio');
 const gpioutil = require('pi-gpioutil');
+const gpio = require('./gpio');
 
 test('writeGPIO returns the value written', () => {
   gpioutil.pwm = jest.fn((pin, value, cb) => cb());

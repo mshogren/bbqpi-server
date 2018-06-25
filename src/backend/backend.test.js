@@ -1,6 +1,6 @@
-const Backend = require('./backend');
 const firebase = require('firebase');
 const { EventEmitter } = require('events');
+const Backend = require('./backend');
 const config = require('../config');
 
 jest.mock('./auth');
