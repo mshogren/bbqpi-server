@@ -1,4 +1,4 @@
-FROM arm32v7/node:8
+FROM arm32v7/node:8-stretch
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ ENV NODE_ENV=production \
   DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
 RUN wget -O - -q https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - \
-  && echo "deb http://archive.raspberrypi.org/debian jessie main" | tee --append /etc/apt/sources.list \
+  && echo "deb http://archive.raspberrypi.org/debian stretch main" | tee --append /etc/apt/sources.list \
   && apt-get update \
   && apt-get install -y wiringpi dnsmasq \
   && apt-get clean \
