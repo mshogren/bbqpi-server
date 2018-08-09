@@ -73,6 +73,7 @@
     ]
   },
   "release": {
+    "npmPublish": false,
     "prepare": [
       "@semantic-release/npm",
       "@semantic-release/git"
