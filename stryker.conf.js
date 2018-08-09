@@ -17,7 +17,8 @@ module.exports = (config) => {
     testRunner: 'jest',
     jest: {
       config: {
-        testPathIgnorePatterns: []
+        testPathIgnorePatterns: [],
+        testURL: 'http://localhost/'
       }
     },
     reporter: ['clear-text', 'progress', 'dashboard'],
