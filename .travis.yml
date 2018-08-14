@@ -1,29 +1,30 @@
+---
 dist: trusty
 sudo: false
 language: node_js
 node_js:
-- '8'
+  - '8'
 cache:
   directories:
-  - node_modules
+    - node_modules
 before_install:
-- git fetch --unshallow
+  - git fetch --unshallow
 script:
-- ./node_modules/.bin/commitlint --from="$TRAVIS_BRANCH" --to="$TRAVIS_COMMIT"
-- ./node_modules/.bin/commitlint --from=$TRAVIS_COMMIT~1
-- npm test
+  - ./node_modules/.bin/commitlint --from="$TRAVIS_BRANCH" --to="$TRAVIS_COMMIT"
+  - ./node_modules/.bin/commitlint --from=$TRAVIS_COMMIT~1
+  - npm test
 after_success:
-- npm run semantic-release
-- openssl aes-256-cbc -K $encrypted_0837e40369e1_key -iv $encrypted_0837e40369e1_iv -in resin_rsa.enc -out /tmp/resin_rsa -d
-- echo -e "Host git.resin.io\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- eval "$(ssh-agent -s)"
-- chmod 600 /tmp/resin_rsa
-- ssh-add /tmp/resin_rsa
-- git remote add resin $RESIN_REMOTE
-- git push resin master
+  - npm run semantic-release
+  - openssl aes-256-cbc -K $encrypted_0837e40369e1_key -iv $encrypted_0837e40369e1_iv -in resin_rsa.enc -out /tmp/resin_rsa -d
+  - echo -e "Host git.resin.io\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - eval "$(ssh-agent -s)"
+  - chmod 600 /tmp/resin_rsa
+  - ssh-add /tmp/resin_rsa
+  - git remote add resin $RESIN_REMOTE
+  - git push resin master
 branches:
   except:
-  - "/^v\\d+\\.\\d+\\.\\d+$/"
+    - "/^v\\d+\\.\\d+\\.\\d+$/"
 env:
   global:
     secure: CDF7GaOK7GfPdYdBrdN/hL0wNz6SLzrWBBGcgmX+LfB+dWfr9Z1/Ywr4q5nDUZrBIMKQE3SEG8ekd3skfBVo19Sa0Mb2WiOvkr4SKW9h+z+zayF7+JsmAWp5/yr2ZSB+VJ8HND4VQGs1HM9Pq5nAqoQPMNy2brihFY5T0BDGsaPDI4iE2FcRGx04qkpg26P3afpMXQoK78a7LjzNiaE+Gunnc8RsKtBzLA7HZ1Gn+7PMylMGNa1S+Oc/ExQ+dUXqFVUiQEOxJ93ajoZtMJRJ6rEKaZ+HQfsN1yPDZ1m3dwpq0gg6TQAtfWiMv5ttkm9cEbAjtPlvqxU2oHeLyEbf6cWRcdlU0e9EVV9AMCMY0VJlRgAsmjdxtrhOmOvKijCOXpcgFT1hxTZGaWse4O6AJRkXqZe2q/4yPFAlaOgU9/zam32MXnC4Zqyn+JAywWZ2a85mnYHZzwTz+X1vroP9icB+Lw1hVUQEAwNU5ztbRetFajLpKW/HOyivEMOyJVmrAqvy5y9m8z7S7dtQnh0aVVJzWWPgQC/7/dwb94yzdnTsY/Pt8a4dPHW4EBE93a0XJvpyOvxOmc0gO3ScFpkb9Xxhx+PVIQhi1wShlpAN60Nff1p/bxZpS/WN/X63KlctXf0ibrznae6dlirZzw0WxuDBrP71wuPgWKQUIrxL+40=
