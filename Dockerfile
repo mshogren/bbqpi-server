@@ -1,4 +1,4 @@
-FROM arm32v7/node:8-stretch
+FROM arm32v7/node:10-stretch
 
 WORKDIR /app
 

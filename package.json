@@ -41,7 +41,7 @@
     "@semantic-release/git": "^7.0.4",
     "codecov": "^3.1.0",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^5.6.0",
+    "eslint": "^5.6.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
@@ -51,9 +51,9 @@
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
     "semantic-release": "^15.9.16",
-    "stryker": "^0.29.2",
+    "stryker": "^0.29.3",
     "stryker-api": "^0.21.1",
-    "stryker-javascript-mutator": "^0.10.0",
+    "stryker-javascript-mutator": "^0.10.1",
     "stryker-jest-runner": "^1.2.1"
   },
   "jest": {
