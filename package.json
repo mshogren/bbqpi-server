@@ -4,7 +4,7 @@
   "description": "A node and firebase based service to install on a Raspberry Pi for controlling a charcoal bbq fan blower and temperature sensors.",
   "main": "src/server.js",
   "scripts": {
-    "test": "jest --coverage --forceExit && codecov",
+    "test": "jest --coverage && codecov",
     "posttest": "eslint src && stryker run stryker.conf.js",
     "stryker": "stryker run stryker.conf.js",
     "jest": "jest --watch",
@@ -26,17 +26,16 @@
     "node": ">=8.0"
   },
   "dependencies": {
-    "bonjour": "^3.5.0",
-    "firebase": "^5.5.2",
+    "firebase": "^5.5.3",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.4",
-    "mcp-spi-adc": "^2.0.3",
+    "mcp-spi-adc": "^2.0.4",
     "pi-gpioutil": "0.0.3",
     "request": "^2.88.0",
     "web-push": "^3.3.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.1.2",
+    "@commitlint/cli": "^7.2.0",
     "@commitlint/config-conventional": "^7.1.2",
     "@semantic-release/git": "^7.0.4",
     "codecov": "^3.1.0",
@@ -45,16 +44,16 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "husky": "^1.0.1",
+    "husky": "^1.1.1",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
-    "semantic-release": "^15.9.16",
-    "stryker": "^0.29.3",
-    "stryker-api": "^0.21.1",
-    "stryker-javascript-mutator": "^0.10.1",
-    "stryker-jest-runner": "^1.2.1"
+    "semantic-release": "^15.9.17",
+    "stryker": "^0.29.5",
+    "stryker-api": "^0.21.2",
+    "stryker-javascript-mutator": "^0.11.0",
+    "stryker-jest-runner": "^1.2.2"
   },
   "jest": {
     "collectCoverageFrom": [
