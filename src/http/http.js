@@ -1,6 +1,5 @@
 const http = require('http');
 const request = require('request');
-const bonjour = require('bonjour')();
 const config = require('../config');
 
 function HttpServer() {
@@ -38,8 +37,6 @@ function HttpServer() {
   };
 
   http.createServer(self.httpRequestHandler).listen(port);
-
-  bonjour.publish({ name: 'BBQ-Pi', type: 'http', port });
 }
 
 HttpServer.prototype.setDeviceStatus = function setDeviceStatus(deviceStatus) {
