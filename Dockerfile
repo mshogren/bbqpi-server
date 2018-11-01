@@ -14,7 +14,7 @@ RUN wget -O - -q https://archive.raspberrypi.org/debian/raspberrypi.gpg.key | ap
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/latest -s \
+RUN curl https://api.github.com/repos/balena-io/wifi-connect/releases/latest -s \
   | grep -hoP 'browser_download_url": "\K.*armv7hf\.tar\.gz' \
   | xargs -n1 curl -Ls \
   | tar -xvz -C /app/
