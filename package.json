@@ -8,8 +8,6 @@
     "posttest": "eslint src && stryker run stryker.conf.js",
     "stryker": "stryker run stryker.conf.js",
     "jest": "jest --watch",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "precommit": "lint-staged",
     "semantic-release": "semantic-release"
   },
   "repository": {
@@ -84,6 +82,12 @@
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
     }
   }
 }
