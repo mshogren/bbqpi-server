@@ -8,7 +8,8 @@
     "posttest": "eslint src && stryker run stryker.conf.js",
     "stryker": "stryker run stryker.conf.js",
     "jest": "jest --watch",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "update": "rm -rf node_modules && rm package-lock.json && ncu -a && npm install"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,7 @@
     "node": ">=8.0"
   },
   "dependencies": {
-    "firebase": "^5.5.8",
+    "firebase": "^5.6.0",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.4",
     "mcp-spi-adc": "^2.0.4",
@@ -42,16 +43,16 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-import": "^2.14.0",
-    "husky": "^1.1.4",
+    "husky": "^1.2.0",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
-    "lint-staged": "^8.0.4",
-    "prettier": "^1.15.2",
-    "semantic-release": "^15.11.0",
-    "stryker": "^0.32.0",
-    "stryker-api": "^0.21.5",
-    "stryker-javascript-mutator": "^0.11.4",
-    "stryker-jest-runner": "^1.2.7"
+    "lint-staged": "^8.1.0",
+    "prettier": "^1.15.3",
+    "semantic-release": "^15.12.4",
+    "stryker": "^0.33.1",
+    "stryker-api": "^0.22.0",
+    "stryker-javascript-mutator": "^0.12.1",
+    "stryker-jest-runner": "^1.2.9"
   },
   "jest": {
     "collectCoverageFrom": [
