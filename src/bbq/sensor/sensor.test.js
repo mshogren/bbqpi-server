@@ -109,16 +109,21 @@ describe('when reading channel data', () => {
     const sensor = Sensor(1);
     sensor.state.currentTemperature = 42;
 
+    const reading = 512;
+    const filteredReading = 255.5;
+
+    sensor.filterReading = jest.fn();
+    sensor.filterReading.mockReturnValue(filteredReading);
+
     sensor.calculateTemperature = jest.fn();
     sensor.calculateTemperature.mockReturnValue(42);
 
     sensor.emit = jest.fn();
 
-    const reading = {};
-
     sensor.onReadSensorData(undefined, reading);
 
-    expect(sensor.calculateTemperature).toHaveBeenCalledWith(reading);
+    expect(sensor.filterReading).toHaveBeenCalledWith(reading);
+    expect(sensor.calculateTemperature).toHaveBeenCalledWith(filteredReading);
     expect(sensor).toMatchObject({
       state: {
         currentTemperature: 42,
@@ -130,16 +135,21 @@ describe('when reading channel data', () => {
   test('if the temperature has changed', () => {
     const sensor = Sensor(1);
 
+    const reading = 512;
+    const filteredReading = 255.5;
+
+    sensor.filterReading = jest.fn();
+    sensor.filterReading.mockReturnValue(filteredReading);
+
     sensor.calculateTemperature = jest.fn();
     sensor.calculateTemperature.mockReturnValue(72);
 
     sensor.emit = jest.fn();
 
-    const reading = {};
-
     sensor.onReadSensorData(undefined, reading);
 
-    expect(sensor.calculateTemperature).toHaveBeenCalledWith(reading);
+    expect(sensor.filterReading).toHaveBeenCalledWith(reading);
+    expect(sensor.calculateTemperature).toHaveBeenCalledWith(filteredReading);
     expect(sensor).toMatchObject({
       state: {
         currentTemperature: 72,
