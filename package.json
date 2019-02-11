@@ -1,6 +1,6 @@
 {
   "name": "bbqpi-server",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A node and firebase based service to install on a Raspberry Pi for controlling a charcoal bbq fan blower and temperature sensors.",
   "main": "src/server.js",
   "scripts": {
