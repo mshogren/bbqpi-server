@@ -17,6 +17,29 @@ function Sensor(channel, name) {
 
   const self = this;
 
+  self.filterReading = function filterReading(reading) {
+    const alpha = 0.5;
+    const beta = 0.5;
+
+    if (!self.reading0) {
+      self.filteredReading = self.reading0;
+    } else if (!self.filteredReading) {
+      self.filteredReading = self.reading0;
+      self.trend = reading - self.reading0;
+    } else {
+      const filteredReading0 = self.filteredReading;
+      self.filteredReading =
+        alpha * reading + (1 - alpha) * (self.filteredReading - self.trend);
+      self.trend =
+        beta * (self.filteredReading - filteredReading0) +
+        (1 - beta) * self.trend;
+    }
+
+    self.reading0 = reading;
+
+    return self.filteredReading;
+  };
+
   self.calculateTemperature = function calculateTemperature(reading) {
     const temperature =
       self.channel === 0
@@ -29,7 +52,8 @@ function Sensor(channel, name) {
   self.onReadSensorData = function onReadSensorData(readErr, reading) {
     if (readErr) throw readErr;
 
-    const temperature = self.calculateTemperature(reading);
+    const filteredReading = self.filterReading(reading);
+    const temperature = self.calculateTemperature(filteredReading);
     const { state } = self;
 
     if (temperature !== state.currentTemperature) {
