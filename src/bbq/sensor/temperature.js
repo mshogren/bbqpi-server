@@ -1,12 +1,12 @@
 exports.calculateTemperatureTMP36 = (reading) => {
-  const celcius = (reading.value * 3.3 - 0.5) * 100;
+  const celcius = ((reading / 1023.0) * 3.3 - 0.5) * 100;
   const fahrenheit = celcius * 1.8 + 32;
 
   return fahrenheit;
 };
 
 exports.calculateTemperatureTX1000 = (reading) => {
-  const R = 1e4 * (1023.0 / reading.rawValue - 1.0);
+  const R = 1e4 * (1023.0 / reading - 1.0);
   const lnR = Math.log(R);
 
   const kelvin =

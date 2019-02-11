@@ -109,7 +109,7 @@ describe('when reading channel data', () => {
     const sensor = Sensor(1);
     sensor.state.currentTemperature = 42;
 
-    const reading = 512;
+    const reading = { rawValue: 512 };
     const filteredReading = 255.5;
 
     sensor.filterReading = jest.fn();
@@ -122,7 +122,7 @@ describe('when reading channel data', () => {
 
     sensor.onReadSensorData(undefined, reading);
 
-    expect(sensor.filterReading).toHaveBeenCalledWith(reading);
+    expect(sensor.filterReading).toHaveBeenCalledWith(reading.rawValue);
     expect(sensor.calculateTemperature).toHaveBeenCalledWith(filteredReading);
     expect(sensor).toMatchObject({
       state: {
@@ -135,7 +135,7 @@ describe('when reading channel data', () => {
   test('if the temperature has changed', () => {
     const sensor = Sensor(1);
 
-    const reading = 512;
+    const reading = { rawValue: 512 };
     const filteredReading = 255.5;
 
     sensor.filterReading = jest.fn();
@@ -148,7 +148,7 @@ describe('when reading channel data', () => {
 
     sensor.onReadSensorData(undefined, reading);
 
-    expect(sensor.filterReading).toHaveBeenCalledWith(reading);
+    expect(sensor.filterReading).toHaveBeenCalledWith(reading.rawValue);
     expect(sensor.calculateTemperature).toHaveBeenCalledWith(filteredReading);
     expect(sensor).toMatchObject({
       state: {
