@@ -22,7 +22,7 @@ function Sensor(channel, name) {
     const beta = 0.5;
 
     if (!self.reading0) {
-      self.filteredReading = self.reading0;
+      self.filteredReading = reading;
     } else if (!self.filteredReading) {
       self.filteredReading = self.reading0;
       self.trend = reading - self.reading0;
