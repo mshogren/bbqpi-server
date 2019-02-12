@@ -18,8 +18,8 @@ function Sensor(channel, name) {
   const self = this;
 
   self.filterReading = function filterReading(reading) {
-    const alpha = 0.5;
-    const beta = 0.5;
+    const alpha = 0.1;
+    const beta = 0.1;
 
     if (!self.reading0) {
       self.filteredReading = reading;
