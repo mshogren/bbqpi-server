@@ -25,6 +25,7 @@
     "node": ">=8.0"
   },
   "dependencies": {
+    "dnssd": "^0.4.1",
     "firebase": "^5.8.1",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.4",

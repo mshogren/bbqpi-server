@@ -1,4 +1,5 @@
 const http = require('http');
+const dnssd = require('dnssd');
 const request = require('request');
 const config = require('../config');
 
@@ -38,6 +39,9 @@ function HttpServer() {
 
   self.server = http.createServer(self.httpRequestHandler);
   self.server.listen(port);
+
+  self.advertisement = new dnssd.Advertisement(dnssd.tcp('http'), port);
+  self.advertisement.start();
 }
 
 HttpServer.prototype.setDeviceStatus = function setDeviceStatus(deviceStatus) {
@@ -45,6 +49,7 @@ HttpServer.prototype.setDeviceStatus = function setDeviceStatus(deviceStatus) {
 };
 
 HttpServer.prototype.stop = function stop() {
+  this.advertisement.stop();
   this.server.close();
 };
 
