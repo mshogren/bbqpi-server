@@ -21,6 +21,7 @@ function App() {
   const pusher = Pusher();
   const backend = Backend(pusher.publicKey);
 
+  this.http = http;
   this.bbq = bbq;
   this.backend = backend;
 
@@ -67,9 +68,9 @@ function App() {
 }
 
 App.prototype.stop = function stop() {
+  this.http.stop();
   this.bbq.stop();
   this.backend.stop();
-  this.http.stop();
 };
 
 module.exports = App;
