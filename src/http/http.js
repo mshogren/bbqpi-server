@@ -40,7 +40,10 @@ function HttpServer() {
   self.server = http.createServer(self.httpRequestHandler);
   self.server.listen(port);
 
-  self.advertisement = new dnssd.Advertisement(dnssd.tcp('http'), port);
+  self.advertisement = new dnssd.Advertisement(dnssd.tcp('http'), port, {
+    name: 'bbqpi',
+    host: 'bbqpi',
+  });
   self.advertisement.start();
 }
 
