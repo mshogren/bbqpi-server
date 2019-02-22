@@ -36,11 +36,16 @@ function HttpServer() {
     }
   };
 
-  http.createServer(self.httpRequestHandler).listen(port);
+  self.server = http.createServer(self.httpRequestHandler);
+  self.server.listen(port);
 }
 
 HttpServer.prototype.setDeviceStatus = function setDeviceStatus(deviceStatus) {
   this.deviceStatus = deviceStatus;
+};
+
+HttpServer.prototype.stop = function stop() {
+  this.server.close();
 };
 
 module.exports = HttpServer;

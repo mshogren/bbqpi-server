@@ -69,6 +69,7 @@ function App() {
 App.prototype.stop = function stop() {
   this.bbq.stop();
   this.backend.stop();
+  this.http.stop();
 };
 
 module.exports = App;
