@@ -9,7 +9,7 @@
     "stryker": "stryker run stryker.conf.js",
     "jest": "jest --watch",
     "semantic-release": "semantic-release",
-    "update": "rm -rf node_modules && rm package-lock.json && ncu -a && npm install"
+    "update": "rm -rf node_modules && rm package-lock.json && ncu -u && npm install"
   },
   "repository": {
     "type": "git",
@@ -26,34 +26,34 @@
   },
   "dependencies": {
     "dnssd": "^0.4.1",
-    "firebase": "^5.8.1",
+    "firebase": "^6.3.4",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.4",
-    "mcp-spi-adc": "^2.0.4",
+    "mcp-spi-adc": "^2.0.6",
     "pi-gpioutil": "0.0.3",
     "request": "^2.88.0",
-    "web-push": "^3.3.3"
+    "web-push": "^3.3.5"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.4.0",
-    "@commitlint/config-conventional": "^7.3.1",
-    "@semantic-release/git": "^7.0.8",
-    "codecov": "^3.1.0",
-    "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^5.12.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-import": "^2.15.0",
-    "husky": "^1.3.1",
-    "jest": "^24.0.0",
-    "jest-cli": "^24.0.0",
-    "lint-staged": "^8.1.1",
-    "prettier": "^1.16.1",
-    "semantic-release": "^15.13.3",
-    "stryker": "^0.34.0",
-    "stryker-api": "^0.23.0",
-    "stryker-javascript-mutator": "^0.13.0",
-    "stryker-jest-runner": "^1.3.0"
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@semantic-release/git": "^7.0.16",
+    "codecov": "^3.5.0",
+    "cz-conventional-changelog": "^3.0.2",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "husky": "^3.0.2",
+    "jest": "^24.8.0",
+    "jest-cli": "^24.8.0",
+    "lint-staged": "^9.2.1",
+    "prettier": "^1.18.2",
+    "semantic-release": "^15.13.19",
+    "stryker": "^0.35.1",
+    "stryker-api": "^0.24.1",
+    "stryker-javascript-mutator": "^0.14.1",
+    "stryker-jest-runner": "^1.4.1"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -63,6 +63,7 @@
     "testPathIgnorePatterns": [
       "/.stryker-tmp/"
     ],
+    "testEnvironment": "node",
     "testURL": "http://localhost/"
   },
   "lint-staged": {

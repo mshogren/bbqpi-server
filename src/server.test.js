@@ -34,9 +34,11 @@ beforeEach(() => {
   test(`server shutsdown cleanly on ${signal}`, () => {
     bbq.stop = jest.fn();
     backend.stop = jest.fn();
+    http.stop = jest.fn();
 
     process.emit(signal);
 
+    expect(http.stop).toHaveBeenCalled();
     expect(bbq.stop).toHaveBeenCalled();
     expect(backend.stop).toHaveBeenCalled();
   });
