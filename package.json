@@ -50,10 +50,9 @@
     "lint-staged": "^9.2.1",
     "prettier": "^1.18.2",
     "semantic-release": "^15.13.19",
-    "stryker": "^0.35.1",
-    "stryker-api": "^0.24.1",
-    "stryker-javascript-mutator": "^0.14.1",
-    "stryker-jest-runner": "^1.4.1"
+    "@stryker-mutator/core": "^2.0.2",
+    "@stryker-mutator/javascript-mutator": "^2.0.2",
+    "@stryker-mutator/jest-runner": "^2.0.2"
   },
   "jest": {
     "collectCoverageFrom": [
