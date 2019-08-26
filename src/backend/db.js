@@ -36,9 +36,10 @@ function FirebaseDatabase(firebase, deviceKey) {
   };
 
   self.addStateWithTimestamp = function addStateWithTimestamp(state) {
-    const data = Object.assign({}, state, {
+    const data = {
+      ...state,
       timestamp: firebase.database.ServerValue.TIMESTAMP,
-    });
+    };
 
     stateRef.push(data).then(() => {}, console.log);
   };
