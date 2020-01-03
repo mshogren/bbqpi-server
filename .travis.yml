@@ -27,10 +27,10 @@ jobs:
       if: branch = master
       script:
         - npm run semantic-release
-        - openssl aes-256-cbc -K $encrypted_0837e40369e1_key -iv $encrypted_0837e40369e1_iv -in balena_rsa.enc -out /tmp/balena_rsa -d
+        - openssl aes-256-cbc -K $encrypted_0837e40369e1_key -iv $encrypted_0837e40369e1_iv -in resin_rsa.enc -out /tmp/resin_rsa -d
         - echo -e "Host git.balena-cloud.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
         - eval "$(ssh-agent -s)"
-        - chmod 600 /tmp/balena_rsa
-        - ssh-add /tmp/balena_rsa
+        - chmod 600 /tmp/resin_rsa
+        - ssh-add /tmp/resin_rsa
         - git remote add balena $BALENA_REMOTE
         - git push balena master
