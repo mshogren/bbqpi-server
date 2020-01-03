@@ -16,9 +16,11 @@ function HttpServer() {
     if (req.url === '/') {
       res.setHeader('Content-Type', 'application/json');
       if (config.resin) {
-        const resinSupervisorUrl = `${
-          process.env.RESIN_SUPERVISOR_ADDRESS
-        }/v1/device?apikey=${process.env.RESIN_SUPERVISOR_API_KEY}`;
+        const {
+          RESIN_SUPERVISOR_ADDRESS,
+          RESIN_SUPERVISOR_API_KEY,
+        } = process.env;
+        const resinSupervisorUrl = `${RESIN_SUPERVISOR_ADDRESS}/v1/device?apikey=${RESIN_SUPERVISOR_API_KEY}`;
         request.get(resinSupervisorUrl, (err, response, body) => {
           res.end(
             JSON.stringify(
