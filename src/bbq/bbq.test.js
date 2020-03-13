@@ -125,7 +125,7 @@ test('updateSensor updates the sensor with the given channel', () => {
   bbq.sensors[0].getChannel = jest.fn().mockReturnValue(0);
 
   [2, 1, 3].forEach((channel) => {
-    const sensor = new AlarmSensor({ channel });
+    const sensor = jest.fn();
     sensor.getChannel = jest.fn().mockReturnValue(channel);
     sensor.updateSensor = jest.fn();
     bbq.sensors.push(sensor);
@@ -145,7 +145,7 @@ test('removeSensor stops the sensor with the given channel and removes it from t
   bbq.sensors[0].getChannel = jest.fn().mockReturnValue(0);
 
   [2, 1, 3].forEach((channel) => {
-    const sensor = new AlarmSensor({ channel });
+    const sensor = jest.fn();
     sensor.getChannel = jest.fn().mockReturnValue(channel);
     bbq.sensors.push(sensor);
   });
