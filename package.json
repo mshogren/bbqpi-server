@@ -39,7 +39,7 @@
     "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/git": "^9.0.0",
     "@stryker-mutator/core": "^3.0.2",
-    "@stryker-mutator/javascript-mutator": "^3.0.2",
+    "@stryker-mutator/javascript-mutator": "^3.1.0",
     "@stryker-mutator/jest-runner": "^3.0.2",
     "codecov": "^3.6.5",
     "cz-conventional-changelog": "^3.1.0",
