@@ -32,7 +32,7 @@
     "mcp-spi-adc": "^3.0.0",
     "pi-gpioutil": "0.0.3",
     "request": "^2.88.2",
-    "web-push": "^3.4.3"
+    "web-push": "^3.4.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
