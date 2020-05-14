@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "dnssd": "^0.4.1",
-    "firebase": "^7.12.0",
+    "firebase": "^7.14.4",
     "jfs": "^0.3.0",
     "lockfile": "^1.0.4",
     "mcp-spi-adc": "^3.0.0",
